@@ -20,8 +20,37 @@
         </div>
 
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
         <!-- Tab navigation using ASP.NET MultiView -->
         <asp:MultiView ID="multiViewTabs" runat="server">
+
+            <asp:View ID="viewAdminLogin" runat="server">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <asp:Label ID="lblAdminUsername" runat="server" AssociatedControlID="txtAdminUsername">Username:</asp:Label>
+                        <asp:TextBox ID="txtAdminUsername" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvAdminUsername" runat="server" ControlToValidate="txtAdminUsername"
+                            InitialValue="" ErrorMessage="Username is required" CssClass="text-danger" Display="Dynamic" ValidationGroup="AdminLoginValidation" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <asp:Label ID="lblAdminPassword" runat="server" AssociatedControlID="txtAdminPassword">Password:</asp:Label>
+                        <asp:TextBox ID="txtAdminPassword" runat="server" TextMode="Password" CssClass="form-control"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvAdminPassword" runat="server" ControlToValidate="txtAdminPassword"
+                            InitialValue="" ErrorMessage="Password is required" CssClass="text-danger" Display="Dynamic" ValidationGroup="AdminLoginValidation" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3">
+                        <asp:Button ID="btnAdminLogin" runat="server" Text="Login" OnClick="btnAdminLogin_Click" CssClass="btn btn-primary" ValidationGroup="AdminLoginValidation" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <asp:Label ID="lblAdminLoginError" runat="server" CssClass="text-danger"></asp:Label>
+                    </div>
+                </div>
+            </asp:View>
+
             <asp:View ID="viewAdmin" runat="server">
                 <!-- Content for Admin tab goes here -->
                 <div class="form-row">
@@ -38,6 +67,9 @@
                             <asp:ListItem Value="Q3">Q3</asp:ListItem>
                             <asp:ListItem Value="Q4">Q4</asp:ListItem>
                         </asp:DropDownList>
+                    </div>
+                    <div class="form-group col-md-3 text-right mt-2">
+                        <asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" CssClass="btn btn-danger" />
                     </div>
                 </div>
                 <asp:RequiredFieldValidator ID="rfvManagerA" runat="server" ControlToValidate="ddlManagerA"
@@ -96,6 +128,7 @@
                 <div class="form-row">
                     <asp:Label ID="lblMsgA" runat="server" CssClass="text-success"></asp:Label>
                 </div>
+
             </asp:View>
 
             <asp:View ID="viewManager" runat="server">
@@ -104,6 +137,8 @@
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblManagerM" runat="server" AssociatedControlID="ddlManagerM">Manager:</asp:Label>
                         <asp:DropDownList ID="ddlManagerM" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlManagerM_SelectedIndexChanged"></asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvManagerM" runat="server" ControlToValidate="ddlManagerM"
+                            ValidationGroup="ManagerValidation" InitialValue="" ErrorMessage="Please select a manager" CssClass="text-danger" Display="Dynamic" />
                     </div>
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblQuarterM" runat="server" AssociatedControlID="ddlQuarterM">Quarter:</asp:Label>
@@ -114,20 +149,22 @@
                             <asp:ListItem Value="Q3">Q3</asp:ListItem>
                             <asp:ListItem Value="Q4">Q4</asp:ListItem>
                         </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvQuarterM" runat="server" ControlToValidate="ddlQuarterM"
+                            ValidationGroup="ManagerValidation" InitialValue="All" ErrorMessage="Please select a quarter" CssClass="text-danger" Display="Dynamic" />
                     </div>
                 </div>
-                <asp:RequiredFieldValidator ID="rfvManagerM" runat="server" ControlToValidate="ddlManagerM"
-                    ValidationGroup="ManagerValidation" InitialValue="" ErrorMessage="Please select a manager" CssClass="text-danger" Display="Dynamic" />
-                <asp:RequiredFieldValidator ID="rfvQuarterM" runat="server" ControlToValidate="ddlQuarterM"
-                    ValidationGroup="ManagerValidation" InitialValue="All" ErrorMessage="Please select a quarter" CssClass="text-danger" Display="Dynamic" />
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblBudgetM" runat="server" AssociatedControlID="txtBudgetM">Budget:</asp:Label>
                         <asp:TextBox ID="txtBudgetM" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
-                    </div>                
+                        <asp:RequiredFieldValidator ID="rfvBudgetM" runat="server" ControlToValidate="txtBudgetM"
+                            ValidationGroup="ManagerValidation" ErrorMessage="Budget is required" CssClass="text-danger" Display="Dynamic" />
+                    </div>
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblHcM" runat="server" AssociatedControlID="txtHcM">Head Count:</asp:Label>
                         <asp:TextBox ID="txtHcM" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvHcM" runat="server" ControlToValidate="txtHcM"
+                            ValidationGroup="ManagerValidation" ErrorMessage="Head count is required" CssClass="text-danger" Display="Dynamic" />
                     </div>
                 </div>
                 <div class="form-row">
@@ -176,7 +213,7 @@
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblTotalBudgetR" runat="server" AssociatedControlID="txtTotalBudgetR">Total Budget:</asp:Label>
                         <asp:TextBox ID="txtTotalBudgetR" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
-                    </div>                
+                    </div>
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblTotalExpensesR" runat="server" AssociatedControlID="txtTotalExpensesR">Total Expenses:</asp:Label>
                         <asp:TextBox ID="txtTotalExpensesR" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
@@ -191,6 +228,7 @@
 
                 <!-- ... Add other Reports tab content ... -->
             </asp:View>
+
         </asp:MultiView>
 
         <!-- Add jQuery and Bootstrap JS -->
@@ -215,7 +253,7 @@
                 var totalBudget = isNaN(hc) || isNaN(budget) ? '' : (hc * budget).toFixed(2);
                 $('#<%= txtTotalBudget.ClientID %>').val(totalBudget);
             });
-        });
+        });       
     </script>
 </body>
 </html>

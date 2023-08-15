@@ -28,23 +28,72 @@ namespace MoraleExpenseTracker
             btnAdminTab.CssClass = "nav-link bg-grey";
             btnManagerTab.CssClass = "nav-link bg-white";
             btnReportsTab.CssClass = "nav-link bg-white";
-        }
+
+            bool isAdminLoggedIn = Session["AdminLoggedIn"] != null && (bool)Session["AdminLoggedIn"];
+            if (isAdminLoggedIn)
+                multiViewTabs.ActiveViewIndex = 1;
+            else
+                multiViewTabs.ActiveViewIndex = 0;
+
+            ClearManagerView();
+        }        
         protected void btnManagerTab_Click(object sender, EventArgs e)
         {
-            multiViewTabs.ActiveViewIndex = 1;
+            multiViewTabs.ActiveViewIndex = 2;
             btnAdminTab.CssClass = "nav-link bg-white";
             btnManagerTab.CssClass = "nav-link bg-grey";
             btnReportsTab.CssClass = "nav-link bg-white";
             BindManagerDropdownsInAllTabs();
 
+            ClearAdminLoginForm();
+            ClearAdminView();
+
         }
         protected void btnReportsTab_Click(object sender, EventArgs e)
         {
-            multiViewTabs.ActiveViewIndex = 2;
+            multiViewTabs.ActiveViewIndex = 3;
             BindReportsGridView();
             btnAdminTab.CssClass = "nav-link bg-white";
             btnManagerTab.CssClass = "nav-link bg-white";
             btnReportsTab.CssClass = "nav-link bg-grey";
+
+            ClearAdminLoginForm();
+            ClearAdminView();
+            ClearManagerView();
+
+        }
+        #endregion
+
+        #region Login
+        protected void btnAdminLogin_Click(object sender, EventArgs e)
+        {
+            string adminUsername = "admin";
+            string adminPassword = "password";
+
+            string enteredUsername = txtAdminUsername.Text.Trim();
+            string enteredPassword = txtAdminPassword.Text.Trim();
+
+            if (enteredUsername == adminUsername && enteredPassword == adminPassword)
+            {
+                Session["AdminLoggedIn"] = true;
+                multiViewTabs.ActiveViewIndex = 1;              
+            }
+            else
+            {
+                multiViewTabs.ActiveViewIndex = 0;
+                lblAdminLoginError.Text = "Invalid username or password.";
+            }
+        }
+        private bool IsValidAdminLogin(string username, string password)
+        {
+            // Implement your admin login validation logic here
+            // Return true if the login is valid, otherwise return false
+            return true;
+        }
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            multiViewTabs.ActiveViewIndex = 0;
         }
         #endregion
 
@@ -63,7 +112,7 @@ namespace MoraleExpenseTracker
             lblMsgA.Text = "Manger added successfully!";
             BindManagerDropdownsInAllTabs();
 
-        }       
+        }
         private void BindManagerDropdownsInAllTabs()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
@@ -187,9 +236,9 @@ namespace MoraleExpenseTracker
         }
         protected void gvManager_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            //gvReports.PageIndex = e.NewPageIndex;
-            //BindGridView();
-            //multiViewTabs.ActiveViewIndex = 2;
+            gvReports.PageIndex = e.NewPageIndex;
+            BindManagerGrid();
+            multiViewTabs.ActiveViewIndex = 2;
         }
         private void BindManagerGrid()
         {
@@ -245,7 +294,7 @@ namespace MoraleExpenseTracker
         {
             gvReports.PageIndex = e.NewPageIndex;
             BindReportsGridView();
-            multiViewTabs.ActiveViewIndex = 2;
+            multiViewTabs.ActiveViewIndex = 3;
         }
 
         private void BindReportsGridView()
@@ -337,7 +386,78 @@ namespace MoraleExpenseTracker
             gvReports.DataSource = filteredExpenseRecords;
             gvReports.DataBind();
         }
+        #endregion
 
+        #region ClearOff
+        private void ClearAdminLoginForm()
+        {
+            txtAdminUsername.Text = string.Empty;
+            txtAdminPassword.Text = string.Empty;
+
+            rfvAdminUsername.ErrorMessage = string.Empty;
+            rfvAdminPassword.ErrorMessage = string.Empty;
+            rfvAdminUsername.IsValid = true;
+            rfvAdminPassword.IsValid = true;
+
+            lblAdminLoginError.Text = string.Empty;
+        }
+        private void ClearAdminView()
+        {
+            // Clear DropDownList selections
+            ddlManagerA.SelectedIndex = -1;
+            ddlQuarter.SelectedIndex = 0; // Select the "Select" item
+
+            // Clear TextBox values
+            txtHc.Text = string.Empty;
+            txtBudget.Text = string.Empty;
+            txtTotalBudget.Text = string.Empty;
+            txtNewManagerName.Text = string.Empty;
+
+            // Clear RequiredFieldValidator errors
+            //rfvManagerA.ErrorMessage = string.Empty;
+            //rfvQuarter.ErrorMessage = string.Empty;
+            //rfvHc.ErrorMessage = string.Empty;
+            //rfvBudget.ErrorMessage = string.Empty;
+            //rfvNewManagerName.ErrorMessage = string.Empty;
+
+            //rfvManagerA.IsValid = true;
+            //rfvQuarter.IsValid = true;
+            //rfvHc.IsValid = true;
+            //rfvBudget.IsValid = true;
+            //rfvNewManagerName.IsValid = true;
+
+            //// Clear RegularExpressionValidator errors
+            //revHc.ErrorMessage = string.Empty;
+            //revBudget.ErrorMessage = string.Empty;
+
+            //revHc.IsValid = true;
+            //revBudget.IsValid = true;
+
+            // Clear Label messages
+            lblMsgASave.Text = string.Empty;
+            lblMsgA.Text = string.Empty;
+        }
+        private void ClearManagerView()
+        {
+            // Clear values and reset DropDownList selections
+            ddlManagerM.SelectedIndex = -1;
+            ddlQuarterM.SelectedIndex = 0;
+            txtBudgetM.Text = "";
+            txtHcM.Text = "";
+            txtExpense.Text = "";
+            gvManager.DataSource = null;
+            gvManager.DataBind();
+
+            // Clear validation errors
+            //rfvManagerM.IsValid = true;
+            //rfvQuarterM.IsValid = true;
+            //rfvBudgetM.IsValid = true;
+            //rfvHcM.IsValid = true;
+            //rfvExpense.IsValid = true;
+
+            // Clear error messages
+            lblMsgM.Text = "";
+        }
 
         #endregion
     }

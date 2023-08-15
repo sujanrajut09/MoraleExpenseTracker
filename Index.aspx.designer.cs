@@ -69,6 +69,87 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.MultiView multiViewTabs;
 
         /// <summary>
+        /// viewAdminLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View viewAdminLogin;
+
+        /// <summary>
+        /// lblAdminUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdminUsername;
+
+        /// <summary>
+        /// txtAdminUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdminUsername;
+
+        /// <summary>
+        /// rfvAdminUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAdminUsername;
+
+        /// <summary>
+        /// lblAdminPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdminPassword;
+
+        /// <summary>
+        /// txtAdminPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAdminPassword;
+
+        /// <summary>
+        /// rfvAdminPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAdminPassword;
+
+        /// <summary>
+        /// btnAdminLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAdminLogin;
+
+        /// <summary>
+        /// lblAdminLoginError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdminLoginError;
+
+        /// <summary>
         /// viewAdmin control.
         /// </summary>
         /// <remarks>
@@ -112,6 +193,15 @@ namespace MoraleExpenseTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlQuarter;
+
+        /// <summary>
+        /// btnLogout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLogout;
 
         /// <summary>
         /// rfvManagerA control.
@@ -312,6 +402,15 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.DropDownList ddlManagerM;
 
         /// <summary>
+        /// rfvManagerM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvManagerM;
+
+        /// <summary>
         /// lblQuarterM control.
         /// </summary>
         /// <remarks>
@@ -328,15 +427,6 @@ namespace MoraleExpenseTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlQuarterM;
-
-        /// <summary>
-        /// rfvManagerM control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvManagerM;
 
         /// <summary>
         /// rfvQuarterM control.
@@ -366,6 +456,15 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.TextBox txtBudgetM;
 
         /// <summary>
+        /// rfvBudgetM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvBudgetM;
+
+        /// <summary>
         /// lblHcM control.
         /// </summary>
         /// <remarks>
@@ -382,6 +481,15 @@ namespace MoraleExpenseTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtHcM;
+
+        /// <summary>
+        /// rfvHcM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvHcM;
 
         /// <summary>
         /// lblExpense control.
