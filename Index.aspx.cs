@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using OfficeOpenXml;
 
 namespace MoraleExpenseTracker
 {
@@ -180,8 +182,8 @@ namespace MoraleExpenseTracker
                     command.Parameters.AddWithValue("@Quarter", quarter);
                     command.Parameters.AddWithValue("@Budget", budget);
                     command.Parameters.AddWithValue("@HeadCount", headCount);
-                    command.Parameters.AddWithValue("@Balance", balance);
-                    command.Parameters.AddWithValue("@Expenses", 0);
+                    //command.Parameters.AddWithValue("@Balance", balance);
+                    //command.Parameters.AddWithValue("@Expenses", 0);
                     command.Parameters.AddWithValue("@BudgetAllocatedDate", budgetAllocatedDate);
 
                     connection.Open();
@@ -286,9 +288,9 @@ namespace MoraleExpenseTracker
         {
             BindReportsGridView();
         }
-        protected void btnGetExpenseReports_Click(object sender, EventArgs e)
+        protected void btnExcelExport_Click(object sender, EventArgs e)
         {
-            BindReportsGridView();
+            ExportToExcel(ReportsResultSet());
         }
         protected void gvReports_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
@@ -297,7 +299,46 @@ namespace MoraleExpenseTracker
             multiViewTabs.ActiveViewIndex = 3;
         }
 
-        private void BindReportsGridView()
+        private void ExportToExcel(List<ExpenseRecord> expenseRecords)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (ExcelPackage excelPackage = new ExcelPackage())
+            {
+                var worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
+
+                // Write header row
+                int colCount = 1;
+                foreach (var property in typeof(ExpenseRecord).GetProperties())
+                {
+                    worksheet.Cells[1, colCount].Value = property.Name;
+                    colCount++;
+                }
+
+                // Write data rows
+                int rowCount = 2;
+                foreach (var record in expenseRecords)
+                {
+                    colCount = 1;
+                    foreach (var property in typeof(ExpenseRecord).GetProperties())
+                    {
+                        worksheet.Cells[rowCount, colCount].Value = property.GetValue(record);
+                        colCount++;
+                    }
+                    rowCount++;
+                }
+
+                byte[] excelBytes = excelPackage.GetAsByteArray();
+
+                Response.Clear();
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("Content-Disposition", "attachment; filename=ExpenseTracker.xlsx");
+                Response.BinaryWrite(excelBytes);
+                Response.End();
+            }
+        }
+
+        private List<ExpenseRecord> ReportsResultSet()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
             ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
@@ -383,7 +424,13 @@ namespace MoraleExpenseTracker
                 txtTotalExpensesR.Text = sumOfFilteredExpenses.ToString();
             }
 
-            gvReports.DataSource = filteredExpenseRecords;
+           return filteredExpenseRecords;
+            
+        }
+
+        private void BindReportsGridView()
+        {
+            gvReports.DataSource = ReportsResultSet();
             gvReports.DataBind();
         }
         #endregion

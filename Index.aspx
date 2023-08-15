@@ -219,8 +219,8 @@
                         <asp:TextBox ID="txtTotalExpensesR" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
                     </div>
                 </div>
-                <div class="form-row">
-                    <asp:Button ID="btnGetExpenseReports" runat="server" Text="Get Reports" OnClick="btnGetExpenseReports_Click" CssClass="btn btn-primary" />
+                <div class="form-row" style="text-align: right;">
+                    <asp:Button ID="btnExcelExport" runat="server" Text="Export to Excel" OnClick="btnExcelExport_Click" CssClass="btn btn-primary" />
                 </div>
                 <asp:GridView ID="gvReports" runat="server" CssClass="table table-striped table-bordered"
                     AutoGenerateColumns="true" PageSize="10" AllowPaging="True" OnPageIndexChanging="gvReports_PageIndexChanging">
@@ -253,7 +253,7 @@
                 var totalBudget = isNaN(hc) || isNaN(budget) ? '' : (hc * budget).toFixed(2);
                 $('#<%= txtTotalBudget.ClientID %>').val(totalBudget);
             });
-        });       
+        });
     </script>
 </body>
 </html>
