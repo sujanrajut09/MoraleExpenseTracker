@@ -121,6 +121,9 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="CSS\Images\Financial-Management.png" />
+    <Content Include="CSS\Images\giphy.gif" />
+    <Content Include="CSS\Images\vecteezy_invoice-report-data-analysis_5648209-removebg-preview.png" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

@@ -12,12 +12,26 @@
 <body>
 
     <form id="form2" runat="server">
-        <!-- Tab buttons -->
-        <div class="nav nav-tabs" id="myTab" role="tablist">
-            <asp:Button ID="btnAdminTab" runat="server" Text="Admin" OnClick="btnAdminTab_Click" CssClass="nav-link" />
-            <asp:Button ID="btnManagerTab" runat="server" Text="Manager" OnClick="btnManagerTab_Click" CssClass="nav-link" />
-            <asp:Button ID="btnReportsTab" runat="server" Text="Reports" OnClick="btnReportsTab_Click" CssClass="nav-link" />
-        </div>
+        <header style="font-family: Georgia, Times, serif">
+            <nav style="display: flex; justify-content: space-between; padding: 1rem 3rem; align-items: center; background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8);">
+                <div class="logo">
+                    <img style="width: 80px; height: 80px; border-radius: 41px; outline: 4px solid red;" src="CSS/Images/Financial-Management.jpg" />
+                </div>
+                <div>
+                    <h1 style="font-size: 3rem; margin-bottom: 0.3rem; text-align: center; font-family: serif;">DAS MORALE EXPENSE TARCKER </h1>
+                </div>
+
+
+                <!-- Tab buttons -->
+                <div class="nav nav-tabs" id="myTab" role="tablist" style="display: flex; align-items: stretch; gap: 2px;">
+                    <asp:Button ID="btnAdminTab" runat="server" Text="Admin" OnClick="btnAdminTab_Click" CssClass="nav-link" Style="font-size: 2rem; padding: 0.6rem 1rem; font-weight: bold; color: white; background: linear-gradient(to right, #c31432, #892211); border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; cursor: pointer; border: none;" />
+                    <asp:Button ID="btnManagerTab" runat="server" Text="Manager" OnClick="btnManagerTab_Click" CssClass="nav-link" />
+                    <asp:Button ID="btnReportsTab" runat="server" Text="Reports" OnClick="btnReportsTab_Click" CssClass="nav-link" />
+                </div>
+
+            </nav>
+
+        </header>
 
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <!-- Tab navigation using ASP.NET MultiView -->
@@ -124,7 +138,7 @@
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblBudgetM" runat="server" AssociatedControlID="txtBudgetM">Budget:</asp:Label>
                         <asp:TextBox ID="txtBudgetM" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
-                    </div>                
+                    </div>
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblHcM" runat="server" AssociatedControlID="txtHcM">Head Count:</asp:Label>
                         <asp:TextBox ID="txtHcM" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
@@ -176,7 +190,7 @@
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblTotalBudgetR" runat="server" AssociatedControlID="txtTotalBudgetR">Total Budget:</asp:Label>
                         <asp:TextBox ID="txtTotalBudgetR" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
-                    </div>                
+                    </div>
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblTotalExpensesR" runat="server" AssociatedControlID="txtTotalExpensesR">Total Expenses:</asp:Label>
                         <asp:TextBox ID="txtTotalExpensesR" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
