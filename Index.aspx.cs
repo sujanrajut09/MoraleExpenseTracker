@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using OfficeOpenXml;
 
 namespace MoraleExpenseTracker
 {
@@ -113,6 +115,18 @@ namespace MoraleExpenseTracker
             BindManagerDropdownsInAllTabs();
 
         }
+
+        protected void btnDelManager_Click(object sender, EventArgs e)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+
+            int managerId = Convert.ToInt32(ddlDelMgrName.SelectedValue);
+            dataAccess.DeactivateManager(managerId);
+            lblMsgA.Text = "Manager deleted successfully!";
+            BindManagerDropdownsInAllTabs();
+        }
+
         private void BindManagerDropdownsInAllTabs()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
@@ -121,7 +135,7 @@ namespace MoraleExpenseTracker
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("GetManagersForDropdown", connection))
+                using (SqlCommand command = new SqlCommand("sp_GetManagersForDropdown", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -135,6 +149,12 @@ namespace MoraleExpenseTracker
                         ddlManagerA.DataValueField = "ManagerId";
                         ddlManagerA.DataBind();
                         ddlManagerA.Items.Insert(0, new ListItem("Please select", ""));
+
+                        ddlDelMgrName.DataSource = dt;
+                        ddlDelMgrName.DataTextField = "ManagerName";
+                        ddlDelMgrName.DataValueField = "ManagerId";
+                        ddlDelMgrName.DataBind();
+                        ddlDelMgrName.Items.Insert(0, new ListItem("Please select", ""));
 
                         ddlManagerM.DataSource = dt;
                         ddlManagerM.DataTextField = "ManagerName";
@@ -180,8 +200,8 @@ namespace MoraleExpenseTracker
                     command.Parameters.AddWithValue("@Quarter", quarter);
                     command.Parameters.AddWithValue("@Budget", budget);
                     command.Parameters.AddWithValue("@HeadCount", headCount);
-                    command.Parameters.AddWithValue("@Balance", balance);
-                    command.Parameters.AddWithValue("@Expenses", 0);
+                    //command.Parameters.AddWithValue("@Balance", balance);
+                    //command.Parameters.AddWithValue("@Expenses", 0);
                     command.Parameters.AddWithValue("@BudgetAllocatedDate", budgetAllocatedDate);
 
                     connection.Open();
@@ -286,9 +306,9 @@ namespace MoraleExpenseTracker
         {
             BindReportsGridView();
         }
-        protected void btnGetExpenseReports_Click(object sender, EventArgs e)
+        protected void btnExcelExport_Click(object sender, EventArgs e)
         {
-            BindReportsGridView();
+            ExportToExcel(ReportsResultSet());
         }
         protected void gvReports_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
@@ -297,7 +317,46 @@ namespace MoraleExpenseTracker
             multiViewTabs.ActiveViewIndex = 3;
         }
 
-        private void BindReportsGridView()
+        private void ExportToExcel(List<ExpenseRecord> expenseRecords)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (ExcelPackage excelPackage = new ExcelPackage())
+            {
+                var worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
+
+                // Write header row
+                int colCount = 1;
+                foreach (var property in typeof(ExpenseRecord).GetProperties())
+                {
+                    worksheet.Cells[1, colCount].Value = property.Name;
+                    colCount++;
+                }
+
+                // Write data rows
+                int rowCount = 2;
+                foreach (var record in expenseRecords)
+                {
+                    colCount = 1;
+                    foreach (var property in typeof(ExpenseRecord).GetProperties())
+                    {
+                        worksheet.Cells[rowCount, colCount].Value = property.GetValue(record);
+                        colCount++;
+                    }
+                    rowCount++;
+                }
+
+                byte[] excelBytes = excelPackage.GetAsByteArray();
+
+                Response.Clear();
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("Content-Disposition", "attachment; filename=ExpenseTracker.xlsx");
+                Response.BinaryWrite(excelBytes);
+                Response.End();
+            }
+        }
+
+        private List<ExpenseRecord> ReportsResultSet()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
             ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
@@ -383,7 +442,13 @@ namespace MoraleExpenseTracker
                 txtTotalExpensesR.Text = sumOfFilteredExpenses.ToString();
             }
 
-            gvReports.DataSource = filteredExpenseRecords;
+           return filteredExpenseRecords;
+            
+        }
+
+        private void BindReportsGridView()
+        {
+            gvReports.DataSource = ReportsResultSet();
             gvReports.DataBind();
         }
         #endregion
@@ -406,12 +471,13 @@ namespace MoraleExpenseTracker
             // Clear DropDownList selections
             ddlManagerA.SelectedIndex = -1;
             ddlQuarter.SelectedIndex = 0; // Select the "Select" item
+            ddlDelMgrName.SelectedIndex = 0;
 
             // Clear TextBox values
             txtHc.Text = string.Empty;
             txtBudget.Text = string.Empty;
             txtTotalBudget.Text = string.Empty;
-            txtNewManagerName.Text = string.Empty;
+            txtNewManagerName.Text = string.Empty;            
 
             // Clear RequiredFieldValidator errors
             //rfvManagerA.ErrorMessage = string.Empty;

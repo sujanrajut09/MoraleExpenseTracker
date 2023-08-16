@@ -14,7 +14,7 @@ namespace MoraleExpenseTracker
 {
     public class ExpenseRecord
     {
-        //public int Id { get; set; }
+        public int ExpenseId { get; set; }
         public string ManagerName { get; set; }
         public string Quarter { get; set; }
         public int HeadCount { get; set; }
@@ -52,14 +52,23 @@ namespace MoraleExpenseTracker
                         {
                             ExpenseRecord expenseRecord = new ExpenseRecord
                             {
+                                ExpenseId = Convert.ToInt32(reader["Id"]),
                                 ManagerName = reader["ManagerName"].ToString(),
                                 Quarter = reader["Quarter"].ToString(),
                                 Budget = Convert.ToDecimal(reader["Budget"]),
                                 Balance = Convert.ToDecimal(reader["Balance"]),
                                 HeadCount = Convert.ToInt32(reader["HeadCount"]),
-                                Expenses = Convert.ToDecimal(reader["Expenses"]),
                                 BudgetAllocatedDate = Convert.ToDateTime(reader["BudgetAllocatedDate"])
                             };
+
+                            if (reader["Expenses"] != DBNull.Value)
+                            {
+                                expenseRecord.Expenses = Convert.ToDecimal(reader["Expenses"]);
+                            }
+                            else
+                            {
+                                expenseRecord.Expenses = 0; // Set a default value if needed
+                            }
 
                             if (reader["ExpenseDate"] != DBNull.Value)
                             {
@@ -85,10 +94,26 @@ namespace MoraleExpenseTracker
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("InsertManager", connection))
+                using (SqlCommand command = new SqlCommand("sp_InsertManager", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ManagerName", managerName);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+        }
+
+        public void DeactivateManager(int managerId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("sp_DeactivateManager", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ManagerId", managerId);
                     command.ExecuteNonQuery();
                 }
             }

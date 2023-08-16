@@ -366,6 +366,42 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.Button btnSaveNewManager;
 
         /// <summary>
+        /// lblDelMgrName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDelMgrName;
+
+        /// <summary>
+        /// ddlDelMgrName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDelMgrName;
+
+        /// <summary>
+        /// rfvManagerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvManagerName;
+
+        /// <summary>
+        /// btnDelManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDelManager;
+
+        /// <summary>
         /// lblMsgA control.
         /// </summary>
         /// <remarks>
@@ -636,13 +672,13 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.TextBox txtTotalExpensesR;
 
         /// <summary>
-        /// btnGetExpenseReports control.
+        /// btnExcelExport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGetExpenseReports;
+        protected global::System.Web.UI.WebControls.Button btnExcelExport;
 
         /// <summary>
         /// gvReports control.
