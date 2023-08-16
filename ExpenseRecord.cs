@@ -14,7 +14,7 @@ namespace MoraleExpenseTracker
 {
     public class ExpenseRecord
     {
-        public int Id { get; set; }
+        public int ExpenseId { get; set; }
         public string ManagerName { get; set; }
         public string Quarter { get; set; }
         public int HeadCount { get; set; }
@@ -52,7 +52,7 @@ namespace MoraleExpenseTracker
                         {
                             ExpenseRecord expenseRecord = new ExpenseRecord
                             {
-                                Id = Convert.ToInt32(reader["Id"]),
+                                ExpenseId = Convert.ToInt32(reader["Id"]),
                                 ManagerName = reader["ManagerName"].ToString(),
                                 Quarter = reader["Quarter"].ToString(),
                                 Budget = Convert.ToDecimal(reader["Budget"]),
@@ -94,10 +94,26 @@ namespace MoraleExpenseTracker
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("InsertManager", connection))
+                using (SqlCommand command = new SqlCommand("sp_InsertManager", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ManagerName", managerName);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+        }
+
+        public void DeactivateManager(int managerId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("sp_DeactivateManager", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ManagerId", managerId);
                     command.ExecuteNonQuery();
                 }
             }

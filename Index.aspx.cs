@@ -115,6 +115,18 @@ namespace MoraleExpenseTracker
             BindManagerDropdownsInAllTabs();
 
         }
+
+        protected void btnDelManager_Click(object sender, EventArgs e)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+
+            int managerId = Convert.ToInt32(ddlDelMgrName.SelectedValue);
+            dataAccess.DeactivateManager(managerId);
+            lblMsgA.Text = "Manger deleted successfully!";
+            BindManagerDropdownsInAllTabs();
+        }
+
         private void BindManagerDropdownsInAllTabs()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
@@ -123,7 +135,7 @@ namespace MoraleExpenseTracker
             {
                 connection.Open();
 
-                using (SqlCommand command = new SqlCommand("GetManagersForDropdown", connection))
+                using (SqlCommand command = new SqlCommand("sp_GetManagersForDropdown", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
@@ -137,6 +149,12 @@ namespace MoraleExpenseTracker
                         ddlManagerA.DataValueField = "ManagerId";
                         ddlManagerA.DataBind();
                         ddlManagerA.Items.Insert(0, new ListItem("Please select", ""));
+
+                        ddlDelMgrName.DataSource = dt;
+                        ddlDelMgrName.DataTextField = "ManagerName";
+                        ddlDelMgrName.DataValueField = "ManagerId";
+                        ddlDelMgrName.DataBind();
+                        ddlDelMgrName.Items.Insert(0, new ListItem("Please select", ""));
 
                         ddlManagerM.DataSource = dt;
                         ddlManagerM.DataTextField = "ManagerName";

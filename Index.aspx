@@ -7,7 +7,6 @@
     <!-- Add Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
 </head>
 <body>
 
@@ -123,6 +122,22 @@
                     <div class="form-group col-md-3">
                         <asp:Button ID="btnSaveNewManager" runat="server" Text="Add Manager" OnClick="btnSaveNewManager_Click"
                             CssClass="btn btn-primary" ValidationGroup="AddManagerGroup" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <asp:Label ID="lblDelMgrName" runat="server" AssociatedControlID="ddlDelMgrName">Delete Manager:</asp:Label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <asp:DropDownList ID="ddlDelMgrName" runat="server" CssClass="form-control" AutoPostBack="true">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvManagerName" runat="server" ControlToValidate="ddlDelMgrName"
+                            InitialValue="" ErrorMessage="Please select a manager" CssClass="text-danger" Display="Dynamic"
+                            ValidationGroup="DeleteManagerGroup" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <asp:Button ID="btnDelManager" runat="server" Text="Delete Manager" OnClick="btnDelManager_Click"
+                            CssClass="btn btn-primary" ValidationGroup="DeleteManagerGroup" />
                     </div>
                 </div>
                 <div class="form-row">
