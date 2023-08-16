@@ -123,7 +123,7 @@ namespace MoraleExpenseTracker
 
             int managerId = Convert.ToInt32(ddlDelMgrName.SelectedValue);
             dataAccess.DeactivateManager(managerId);
-            lblMsgA.Text = "Manger deleted successfully!";
+            lblMsgA.Text = "Manager deleted successfully!";
             BindManagerDropdownsInAllTabs();
         }
 
@@ -471,12 +471,13 @@ namespace MoraleExpenseTracker
             // Clear DropDownList selections
             ddlManagerA.SelectedIndex = -1;
             ddlQuarter.SelectedIndex = 0; // Select the "Select" item
+            ddlDelMgrName.SelectedIndex = 0;
 
             // Clear TextBox values
             txtHc.Text = string.Empty;
             txtBudget.Text = string.Empty;
             txtTotalBudget.Text = string.Empty;
-            txtNewManagerName.Text = string.Empty;
+            txtNewManagerName.Text = string.Empty;            
 
             // Clear RequiredFieldValidator errors
             //rfvManagerA.ErrorMessage = string.Empty;

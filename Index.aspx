@@ -111,7 +111,7 @@
                 <br />
                 <div class="row">
                     <div class="form-group col-md-3">
-                        <asp:Label ID="lblNewManagerName" runat="server" AssociatedControlID="txtNewManagerName">Add Manager Name:</asp:Label>
+                        <asp:Label ID="lblNewManagerName" runat="server" AssociatedControlID="txtNewManagerName">Add Manager:</asp:Label>
                     </div>
                     <div class="form-group col-md-3">
                         <asp:TextBox ID="txtNewManagerName" runat="server" CssClass="form-control"></asp:TextBox>
