@@ -38,6 +38,7 @@ namespace MoraleExpenseTracker
                 multiViewTabs.ActiveViewIndex = 0;
 
             ClearManagerView();
+            ClearReportsDropdowns();
         }        
         protected void btnManagerTab_Click(object sender, EventArgs e)
         {
@@ -49,6 +50,7 @@ namespace MoraleExpenseTracker
 
             ClearAdminLoginForm();
             ClearAdminView();
+            ClearReportsDropdowns();
 
         }
         protected void btnReportsTab_Click(object sender, EventArgs e)
@@ -168,6 +170,15 @@ namespace MoraleExpenseTracker
                         ddlManagerR.DataBind();
                         ddlManagerR.Items.Insert(0, new ListItem("All Managers", ""));
 
+                        if (ddlYearR.Items.Count > 0)
+                        {
+                            if (ddlYearR.Items[0].Text == "All Years")
+                            {
+                                ddlYearR.Items.RemoveAt(0);
+                            }
+                        }
+                        ddlYearR.Items.Insert(0, new ListItem("All Years", ""));
+
                         if (ddlQuarterR.Items.Count > 0)
                         {
                             if (ddlQuarterR.Items[0].Text == "All Quarters")
@@ -180,15 +191,19 @@ namespace MoraleExpenseTracker
                 }
             }
         }
+
+        
+
         private void SaveAdminData()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
 
             int managerId = Convert.ToInt32(ddlManagerA.SelectedValue);
+            int year = Convert.ToInt32(ddlYearA.SelectedValue);
             string quarter = ddlQuarter.SelectedValue;
-            decimal budget = Convert.ToInt32(txtHc.Text) * Convert.ToInt32(txtBudget.Text);
-            decimal balance = budget;
-            int headCount = Convert.ToInt32(txtHc.Text);
+            decimal budget = Convert.ToInt32(txtHcA.Text.Trim()) * Convert.ToInt32(txtBudget.Text.Trim());
+            int headCount = Convert.ToInt32(txtHcA.Text.Trim());
+            string description = txtDescriptionA.Text.Trim();
             DateTime budgetAllocatedDate = DateTime.Now;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -197,11 +212,11 @@ namespace MoraleExpenseTracker
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ManagerId", managerId);
+                    command.Parameters.AddWithValue("@Year", year);
                     command.Parameters.AddWithValue("@Quarter", quarter);
                     command.Parameters.AddWithValue("@Budget", budget);
-                    command.Parameters.AddWithValue("@HeadCount", headCount);
-                    //command.Parameters.AddWithValue("@Balance", balance);
-                    //command.Parameters.AddWithValue("@Expenses", 0);
+                    command.Parameters.AddWithValue("@HeadCount", headCount);                    
+                    command.Parameters.AddWithValue("@Description", description);
                     command.Parameters.AddWithValue("@BudgetAllocatedDate", budgetAllocatedDate);
 
                     connection.Open();
@@ -219,10 +234,12 @@ namespace MoraleExpenseTracker
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
 
             int managerId = Convert.ToInt32(ddlManagerM.SelectedValue);
+            int year = Convert.ToInt32(ddlYearM.SelectedValue);
             string quarter = ddlQuarterM.SelectedValue;
             decimal budget = Convert.ToDecimal(txtBudgetM.Text);
-            decimal expense = Convert.ToDecimal(txtExpense.Text);
+            decimal expense = Convert.ToDecimal(txtExpenseM.Text);
             int headCount = Convert.ToInt32(txtHcM.Text);
+            string description = txtDescriptionM.Text.Trim();
             DateTime expenseDate = DateTime.Now;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -231,10 +248,12 @@ namespace MoraleExpenseTracker
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ManagerId", managerId);
+                    command.Parameters.AddWithValue("@Year", year);
                     command.Parameters.AddWithValue("@Quarter", quarter);
                     command.Parameters.AddWithValue("@Budget", budget);
                     command.Parameters.AddWithValue("@HeadCount", headCount);
                     command.Parameters.AddWithValue("@Expenses", expense);
+                    command.Parameters.AddWithValue("@Description", description);
                     command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
 
                     connection.Open();
@@ -245,6 +264,11 @@ namespace MoraleExpenseTracker
             }
         }
         protected void ddlManagerM_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindManagerGrid();
+            lblMsgM.Text = string.Empty;
+        }
+        protected void ddlYearM_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindManagerGrid();
             lblMsgM.Text = string.Empty;
@@ -266,12 +290,13 @@ namespace MoraleExpenseTracker
             ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
 
             string selectedManager = ddlManagerM.SelectedItem.ToString();
-            string selectedQuarter = ddlQuarterM.SelectedValue;
+            string selectedYear = ddlYearM.SelectedValue;
+            string selectedQuarter = ddlQuarterM.SelectedValue;            
 
             List<ExpenseRecord> expenseRecords = dataAccess.GetAllExpenseRecords();
 
             List<ExpenseRecord> filteredRecords = expenseRecords
-                .Where(r => r.ManagerName == selectedManager && r.Quarter == selectedQuarter)
+                .Where(r => r.ManagerName == selectedManager && r.FinancialYear == selectedYear && r.Quarter == selectedQuarter)
                 .ToList();
 
             gvManager.DataSource = filteredRecords;
@@ -280,18 +305,18 @@ namespace MoraleExpenseTracker
             decimal sumOfExpenses = filteredRecords.Sum(r => r.Expenses);
 
             string selectedMgr = ddlManagerM.SelectedItem.ToString();
-            ExpenseRecord managerRecord = expenseRecords.FirstOrDefault(r => r.ManagerName == selectedMgr && r.Quarter == ddlQuarterM.SelectedValue);
+            ExpenseRecord managerRecord = expenseRecords.FirstOrDefault(r => r.ManagerName == selectedMgr && r.FinancialYear == selectedYear && r.Quarter == ddlQuarterM.SelectedValue);
 
             if (managerRecord != null)
             {
                 txtBudgetM.Text = managerRecord.Budget.ToString();
-                txtHcM.Text = managerRecord.HeadCount.ToString();
+                txtHcM.Text = managerRecord.Reportees.ToString();
             }
             else
             {
                 txtBudgetM.Text = string.Empty;
                 txtHcM.Text = string.Empty;
-                txtExpense.Text = string.Empty;
+                txtExpenseM.Text = string.Empty;
             }
         }
 
@@ -299,6 +324,10 @@ namespace MoraleExpenseTracker
 
         #region ReportsTab
         protected void ddlManagerR_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindReportsGridView();
+        }
+        protected void ddlYearR_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindReportsGridView();
         }
@@ -356,12 +385,13 @@ namespace MoraleExpenseTracker
             }
         }
 
-        private List<ExpenseRecord> ReportsResultSet()
+        private List<ExpenseRecord> ReportsResultSet1()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
             ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
 
             int selectedManagerIndex = ddlManagerR.SelectedIndex;
+            int selectedYearIndex = ddlYearR.SelectedIndex;
             int selectedQuarterIndex = ddlQuarterR.SelectedIndex;
 
             List<ExpenseRecord> expenseRecords = dataAccess.GetAllExpenseRecords();
@@ -406,6 +436,93 @@ namespace MoraleExpenseTracker
 
             return filteredExpenseRecords;
         }
+        private List<ExpenseRecord> ReportsResultSet()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+
+            int selectedManagerIndex = ddlManagerR.SelectedIndex;
+            int selectedYearIndex = ddlYearR.SelectedIndex;
+            int selectedQuarterIndex = ddlQuarterR.SelectedIndex;
+
+            List<ExpenseRecord> expenseRecords = dataAccess.GetAllExpenseRecords();
+            List<ExpenseRecord> filteredExpenseRecords = expenseRecords; // Initialize with all records
+
+            if (selectedManagerIndex != 0)
+            {
+                string selectedManager = ddlManagerR.SelectedItem.ToString();
+
+                if (selectedYearIndex != 0 && selectedQuarterIndex != 0)
+                {
+                    string selectedYear = ddlYearR.SelectedItem.ToString();
+                    string selectedQuarter = ddlQuarterR.SelectedItem.ToString();
+
+                    filteredExpenseRecords = expenseRecords
+                        .Where(r => r.ManagerName == selectedManager && r.FinancialYear == selectedYear && r.Quarter == selectedQuarter)
+                        .ToList();
+                }
+                else if (selectedYearIndex != 0)
+                {
+                    string selectedYear = ddlYearR.SelectedItem.ToString();
+
+                    filteredExpenseRecords = expenseRecords
+                        .Where(r => r.ManagerName == selectedManager && r.FinancialYear == selectedYear)
+                        .ToList();
+                }
+                else if (selectedQuarterIndex != 0)
+                {
+                    string selectedQuarter = ddlQuarterR.SelectedItem.ToString();
+
+                    filteredExpenseRecords = expenseRecords
+                        .Where(r => r.ManagerName == selectedManager && r.Quarter == selectedQuarter)
+                        .ToList();
+                }
+                else
+                {
+                    filteredExpenseRecords = expenseRecords
+                        .Where(r => r.ManagerName == selectedManager)
+                        .ToList();
+                }
+            }
+            else if (selectedYearIndex != 0 && selectedQuarterIndex != 0)
+            {
+                string selectedYear = ddlYearR.SelectedItem.ToString();
+                string selectedQuarter = ddlQuarterR.SelectedItem.ToString();
+
+                filteredExpenseRecords = expenseRecords
+                    .Where(r => r.FinancialYear == selectedYear && r.Quarter == selectedQuarter)
+                    .ToList();
+            }
+            else if (selectedYearIndex != 0)
+            {
+                string selectedYear = ddlYearR.SelectedItem.ToString();
+
+                filteredExpenseRecords = expenseRecords
+                    .Where(r => r.FinancialYear == selectedYear)
+                    .ToList();
+            }
+            else if (selectedQuarterIndex != 0)
+            {
+                string selectedQuarter = ddlQuarterR.SelectedItem.ToString();
+
+                filteredExpenseRecords = expenseRecords
+                    .Where(r => r.Quarter == selectedQuarter)
+                    .ToList();
+            }
+
+            decimal sumOfFilteredBudget = filteredExpenseRecords
+                .GroupBy(r => new { r.ManagerName, r.FinancialYear, r.Quarter })
+                .Select(group => group.OrderByDescending(r => r.BudgetAllocatedDate).First().Budget)
+                .Sum();
+
+            decimal sumOfFilteredExpenses = filteredExpenseRecords
+                .Sum(r => r.Expenses);
+
+            txtTotalBudgetR.Text = sumOfFilteredBudget.ToString();
+            txtTotalExpensesR.Text = sumOfFilteredExpenses.ToString();
+
+            return filteredExpenseRecords;
+        }
 
         private void BindReportsGridView()
         {
@@ -429,61 +546,37 @@ namespace MoraleExpenseTracker
         }
         private void ClearAdminView()
         {
-            // Clear DropDownList selections
-            ddlManagerA.SelectedIndex = -1;
-            ddlQuarter.SelectedIndex = 0; // Select the "Select" item
+            ddlManagerA.SelectedIndex = 0;
+            ddlYearA.SelectedIndex = 0;
+            ddlQuarter.SelectedIndex = 0; 
             ddlDelMgrName.SelectedIndex = 0;
 
-            // Clear TextBox values
-            txtHc.Text = string.Empty;
+            txtHcA.Text = string.Empty;
             txtBudget.Text = string.Empty;
             txtTotalBudget.Text = string.Empty;
-            txtNewManagerName.Text = string.Empty;            
+            txtNewManagerName.Text = string.Empty; 
 
-            // Clear RequiredFieldValidator errors
-            //rfvManagerA.ErrorMessage = string.Empty;
-            //rfvQuarter.ErrorMessage = string.Empty;
-            //rfvHc.ErrorMessage = string.Empty;
-            //rfvBudget.ErrorMessage = string.Empty;
-            //rfvNewManagerName.ErrorMessage = string.Empty;
-
-            //rfvManagerA.IsValid = true;
-            //rfvQuarter.IsValid = true;
-            //rfvHc.IsValid = true;
-            //rfvBudget.IsValid = true;
-            //rfvNewManagerName.IsValid = true;
-
-            //// Clear RegularExpressionValidator errors
-            //revHc.ErrorMessage = string.Empty;
-            //revBudget.ErrorMessage = string.Empty;
-
-            //revHc.IsValid = true;
-            //revBudget.IsValid = true;
-
-            // Clear Label messages
             lblMsgASave.Text = string.Empty;
             lblMsgA.Text = string.Empty;
         }
         private void ClearManagerView()
         {
-            // Clear values and reset DropDownList selections
-            ddlManagerM.SelectedIndex = -1;
+            ddlManagerM.SelectedIndex = 0;
+            ddlYearM.SelectedIndex = 0;
             ddlQuarterM.SelectedIndex = 0;
-            txtBudgetM.Text = "";
-            txtHcM.Text = "";
-            txtExpense.Text = "";
+            txtBudgetM.Text = string.Empty;
+            txtHcM.Text = string.Empty;
+            txtExpenseM.Text = string.Empty;
             gvManager.DataSource = null;
             gvManager.DataBind();
 
-            // Clear validation errors
-            //rfvManagerM.IsValid = true;
-            //rfvQuarterM.IsValid = true;
-            //rfvBudgetM.IsValid = true;
-            //rfvHcM.IsValid = true;
-            //rfvExpense.IsValid = true;
+            lblMsgM.Text = string.Empty;
+        }
 
-            // Clear error messages
-            lblMsgM.Text = "";
+        private void ClearReportsDropdowns()
+        {
+            ddlYearR.SelectedIndex = 0;
+            ddlQuarterR.SelectedIndex = 0;
         }
 
         #endregion

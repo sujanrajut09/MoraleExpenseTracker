@@ -66,9 +66,26 @@
                         <asp:DropDownList ID="ddlManagerA" runat="server" CssClass="form-control" AutoPostBack="true"></asp:DropDownList>
                     </div>
                     <div class="form-group col-md-3">
+                        <asp:Label ID="lblYearA" runat="server" AssociatedControlID="ddlYearA">Financial Year:</asp:Label>
+                        <asp:DropDownList ID="ddlYearA" runat="server" CssClass="form-control">
+                            <asp:ListItem Value="All">Please select</asp:ListItem>
+                            <asp:ListItem Value="2020">2020</asp:ListItem>
+                            <asp:ListItem Value="2021">2021</asp:ListItem>
+                            <asp:ListItem Value="2022">2022</asp:ListItem>
+                            <asp:ListItem Value="2023">2023</asp:ListItem>
+                            <asp:ListItem Value="2024">2024</asp:ListItem>
+                            <asp:ListItem Value="2025">2025</asp:ListItem>
+                            <asp:ListItem Value="2026">2026</asp:ListItem>
+                            <asp:ListItem Value="2027">2027</asp:ListItem>
+                            <asp:ListItem Value="2028">2028</asp:ListItem>
+                            <asp:ListItem Value="2029">2029</asp:ListItem>
+                            <asp:ListItem Value="2030">2030</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="form-group col-md-3">
                         <asp:Label ID="lblQuarter" runat="server" AssociatedControlID="ddlQuarter">Quarter:</asp:Label>
                         <asp:DropDownList ID="ddlQuarter" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="All">Select</asp:ListItem>
+                            <asp:ListItem Value="All">Please select</asp:ListItem>
                             <asp:ListItem Value="Q1">Q1</asp:ListItem>
                             <asp:ListItem Value="Q2">Q2</asp:ListItem>
                             <asp:ListItem Value="Q3">Q3</asp:ListItem>
@@ -81,30 +98,36 @@
                 </div>
                 <asp:RequiredFieldValidator ID="rfvManagerA" runat="server" ControlToValidate="ddlManagerA"
                     InitialValue="" ErrorMessage="Please select a manager" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
+                <asp:RequiredFieldValidator ID="rfvYearA" runat="server" ControlToValidate="ddlYearA"
+                    InitialValue="All" ErrorMessage="Please select a year" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
                 <asp:RequiredFieldValidator ID="rfvQuarter" runat="server" ControlToValidate="ddlQuarter"
                     InitialValue="All" ErrorMessage="Please select a quarter" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <asp:Label ID="lblHc" runat="server" AssociatedControlID="txtHc">Head Count:</asp:Label>
-                        <asp:TextBox ID="txtHc" runat="server" CssClass="form-control"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvHc" runat="server" ControlToValidate="txtHc"
-                            ErrorMessage="Head count is required" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
-                        <asp:RegularExpressionValidator ID="revHc" runat="server" ControlToValidate="txtHc"
+                        <asp:Label ID="lblHc" runat="server" AssociatedControlID="txtHcA">No. of Reportees:</asp:Label>
+                        <asp:TextBox ID="txtHcA" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvHc" runat="server" ControlToValidate="txtHcA"
+                            ErrorMessage="Reportees count is required" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
+                        <asp:RegularExpressionValidator ID="revHc" runat="server" ControlToValidate="txtHcA"
                             ValidationExpression="^\d+$" ErrorMessage="Invalid head count" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
                     </div>
                     <div class="form-group col-md-3">
-                        <asp:Label ID="lblBudget" runat="server" AssociatedControlID="txtBudget">Budget per head:</asp:Label>
+                        <asp:Label ID="lblBudget" runat="server" AssociatedControlID="txtBudget">Budget per Reportee:</asp:Label>
                         <asp:TextBox ID="txtBudget" runat="server" CssClass="form-control"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvBudget" runat="server" ControlToValidate="txtBudget"
-                            ErrorMessage="Budget per head is required" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
+                            ErrorMessage="Budget per Reporteee is required" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
                         <asp:RegularExpressionValidator ID="revBudget" runat="server" ControlToValidate="txtBudget"
                             ValidationExpression="^\d+(\.\d{1,2})?$" ErrorMessage="Invalid budget format" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <asp:Label ID="lblTotalBudget" runat="server" AssociatedControlID="txtTotalBudget">Total Budget:</asp:Label>
+                        <asp:TextBox ID="txtTotalBudget" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <asp:Label ID="lblTotalBudget" runat="server" AssociatedControlID="txtTotalBudget">Total Budget:</asp:Label>
-                        <asp:TextBox ID="txtTotalBudget" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
+                        <asp:Label ID="lblDescriptionA" runat="server" AssociatedControlID="txtDescriptionA">Description:</asp:Label>
+                      <asp:TextBox ID="txtDescriptionA" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-row align-items-center">
@@ -164,9 +187,26 @@
                             ValidationGroup="ManagerValidation" InitialValue="" ErrorMessage="Please select a manager" CssClass="text-danger" Display="Dynamic" />
                     </div>
                     <div class="form-group col-md-3">
+                        <asp:Label ID="lblYearM" runat="server" AssociatedControlID="ddlYearM">Financial Year:</asp:Label>
+                        <asp:DropDownList ID="ddlYearM" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlYearM_SelectedIndexChanged">
+                            <asp:ListItem Value="All">Please select</asp:ListItem>
+                            <asp:ListItem Value="2020">2020</asp:ListItem>
+                            <asp:ListItem Value="2021">2021</asp:ListItem>
+                            <asp:ListItem Value="2022">2022</asp:ListItem>
+                            <asp:ListItem Value="2023">2023</asp:ListItem>
+                            <asp:ListItem Value="2024">2024</asp:ListItem>
+                            <asp:ListItem Value="2025">2025</asp:ListItem>
+                            <asp:ListItem Value="2026">2026</asp:ListItem>
+                            <asp:ListItem Value="2027">2027</asp:ListItem>
+                            <asp:ListItem Value="2028">2028</asp:ListItem>
+                            <asp:ListItem Value="2029">2029</asp:ListItem>
+                            <asp:ListItem Value="2030">2030</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class="form-group col-md-3">
                         <asp:Label ID="lblQuarterM" runat="server" AssociatedControlID="ddlQuarterM">Quarter:</asp:Label>
                         <asp:DropDownList ID="ddlQuarterM" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlQuarterM_SelectedIndexChanged">
-                            <asp:ListItem Value="All">Select</asp:ListItem>
+                            <asp:ListItem Value="All">Please select</asp:ListItem>
                             <asp:ListItem Value="Q1">Q1</asp:ListItem>
                             <asp:ListItem Value="Q2">Q2</asp:ListItem>
                             <asp:ListItem Value="Q3">Q3</asp:ListItem>
@@ -184,20 +224,25 @@
                             ValidationGroup="ManagerValidation" ErrorMessage="Budget is required" CssClass="text-danger" Display="Dynamic" />
                     </div>
                     <div class="form-group col-md-3">
-                        <asp:Label ID="lblHcM" runat="server" AssociatedControlID="txtHcM">Head Count:</asp:Label>
+                        <asp:Label ID="lblHcM" runat="server" AssociatedControlID="txtHcM">No. of Reportees:</asp:Label>
                         <asp:TextBox ID="txtHcM" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvHcM" runat="server" ControlToValidate="txtHcM"
-                            ValidationGroup="ManagerValidation" ErrorMessage="Head count is required" CssClass="text-danger" Display="Dynamic" />
+                            ValidationGroup="ManagerValidation" ErrorMessage="Reportees count is required" CssClass="text-danger" Display="Dynamic" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <asp:Label ID="lblExpense" runat="server" AssociatedControlID="txtExpenseM">Expense:</asp:Label>
+                        <asp:TextBox ID="txtExpenseM" runat="server" CssClass="form-control" AutoPostBack="true"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvExpense" runat="server" ControlToValidate="txtExpenseM"
+                            ValidationGroup="ManagerValidation" ErrorMessage="Expense amount is required" CssClass="text-danger" Display="Dynamic" />
+                        <asp:RegularExpressionValidator ID="revExpense" runat="server" ControlToValidate="txtExpenseM"
+                            ValidationGroup="ManagerValidation" ValidationExpression="^\d+(\.\d{1,2})?$" ErrorMessage="Invalid expense format" CssClass="text-danger" Display="Dynamic" />
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <asp:Label ID="lblExpense" runat="server" AssociatedControlID="txtExpense">Expense:</asp:Label>
-                        <asp:TextBox ID="txtExpense" runat="server" CssClass="form-control" AutoPostBack="true"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvExpense" runat="server" ControlToValidate="txtExpense"
-                            ValidationGroup="ManagerValidation" ErrorMessage="Expense amount is required" CssClass="text-danger" Display="Dynamic" />
-                        <asp:RegularExpressionValidator ID="revExpense" runat="server" ControlToValidate="txtExpense"
-                            ValidationGroup="ManagerValidation" ValidationExpression="^\d+(\.\d{1,2})?$" ErrorMessage="Invalid expense format" CssClass="text-danger" Display="Dynamic" />
+                    
+                     <div class="form-group col-md-3">
+                        <asp:Label ID="lblDescriptionM" runat="server" AssociatedControlID="txtDescriptionA">Description:</asp:Label>
+                      <asp:TextBox ID="txtDescriptionM" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-row">
@@ -221,6 +266,22 @@
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblManagerR" runat="server" AssociatedControlID="ddlManagerR">Manager:</asp:Label>
                         <asp:DropDownList ID="ddlManagerR" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlManagerR_SelectedIndexChanged"></asp:DropDownList>
+                    </div>
+                     <div class="form-group col-md-3">
+                        <asp:Label ID="lblYearR" runat="server" AssociatedControlID="ddlYearR">Financial Year:</asp:Label>
+                        <asp:DropDownList ID="ddlYearR" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlYearR_SelectedIndexChanged">
+                            <asp:ListItem Value="2020">2020</asp:ListItem>
+                            <asp:ListItem Value="2021">2021</asp:ListItem>
+                            <asp:ListItem Value="2022">2022</asp:ListItem>
+                            <asp:ListItem Value="2023">2023</asp:ListItem>
+                            <asp:ListItem Value="2024">2024</asp:ListItem>
+                            <asp:ListItem Value="2025">2025</asp:ListItem>
+                            <asp:ListItem Value="2026">2026</asp:ListItem>
+                            <asp:ListItem Value="2027">2027</asp:ListItem>
+                            <asp:ListItem Value="2028">2028</asp:ListItem>
+                            <asp:ListItem Value="2029">2029</asp:ListItem>
+                            <asp:ListItem Value="2030">2030</asp:ListItem>
+                        </asp:DropDownList>
                     </div>
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblQyarterR" runat="server" AssociatedControlID="ddlQuarterR">Quarter:</asp:Label>
@@ -271,7 +332,7 @@
     <script>
         $(document).ready(function () {
             // Calculate and populate txtTotalBudget based on txtHC and txtBudget
-            $('#<%= txtHc.ClientID %>').on('input', function () {
+            $('#<%= txtHcA.ClientID %>').on('input', function () {
                 var hc = parseFloat($(this).val());
                 var budget = parseFloat($('#<%= txtBudget.ClientID %>').val());
                 var totalBudget = isNaN(hc) || isNaN(budget) ? '' : (hc * budget).toFixed(2);
@@ -279,7 +340,7 @@
             });
 
             $('#<%= txtBudget.ClientID %>').on('input', function () {
-                var hc = parseFloat($('#<%= txtHc.ClientID %>').val());
+                var hc = parseFloat($('#<%= txtHcA.ClientID %>').val());
                 var budget = parseFloat($(this).val());
                 var totalBudget = isNaN(hc) || isNaN(budget) ? '' : (hc * budget).toFixed(2);
                 $('#<%= txtTotalBudget.ClientID %>').val(totalBudget);
