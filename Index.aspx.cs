@@ -20,6 +20,7 @@ namespace MoraleExpenseTracker
             {
                 BindManagerDropdownsInAllTabs();
             }
+
         }
 
         #region Tabs
