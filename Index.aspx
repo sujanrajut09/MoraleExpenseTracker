@@ -255,7 +255,7 @@
             </asp:View>
         </asp:MultiView>
 
-        <div style="position: fixed; text-align: center; width: 100%; bottom: 0; background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8); display: flex; justify-content: center; align-items: center; height: 2.5rem;">
+        <div style="position: fixed; text-align: center; width: 100%; bottom: 0; background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8); display: flex; justify-content: center; align-items: center; height: 2.5rem;" class="form-row">
             <footer>
                 MICROSOFT CONFIDENTIAL! FOR INTERNAL USE ONLY.
             </footer>
