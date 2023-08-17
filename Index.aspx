@@ -9,7 +9,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body style="background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8)">
-
     <form id="form2" runat="server">
         <header style="font-family: Georgia, Times, serif">
             <nav style="display: flex; justify-content: space-between; padding: 1rem 3rem; align-items: center; background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8);">
@@ -19,7 +18,6 @@
                 <div>
                     <h1 style="font-size: 2rem; margin-bottom: 0.3rem; text-align: center; font-family: serif;">DAS MORALE EXPENSE TARCKER </h1>
                 </div>
-
                 <!-- Tab buttons -->
                 <div class="nav nav-tabs" id="myTab" role="tablist" style="display: flex; align-items: stretch; gap: 2px;">
                     <asp:Button ID="btnAdminTab" runat="server" Text="Admin" OnClick="btnAdminTab_Click" CssClass="nav-link" Style="font-size: 1rem; padding: 0.6rem 1rem; font-weight: bold; color: white; background: linear-gradient(to right, #283048, #859398); border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; cursor: pointer; border: none;" />
@@ -29,10 +27,8 @@
             </nav>
         </header>
 
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <!-- Tab navigation using ASP.NET MultiView -->
         <asp:MultiView ID="multiViewTabs" runat="server">
-
             <asp:View ID="viewAdminLogin" runat="server">
                 <div class="backegroundimage">
                     <div class="form-row" style="align-items: center">
@@ -260,7 +256,7 @@
         </asp:MultiView>
 
         <div style="position: fixed; text-align: center; width: 100%; bottom: 0; background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8); display: flex; justify-content: center; align-items: center; height: 2.5rem;">
-            <footer >
+            <footer>
                 MICROSOFT CONFIDENTIAL! FOR INTERNAL USE ONLY.
             </footer>
         </div>

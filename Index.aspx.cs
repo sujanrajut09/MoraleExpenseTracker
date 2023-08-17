@@ -377,35 +377,12 @@ namespace MoraleExpenseTracker
                     filteredExpenseRecords = expenseRecords
                         .Where(r => r.ManagerName == selectedManager && r.Quarter == selectedQuarter)
                         .ToList();
-
-                    decimal selectedQuarterBudget = filteredExpenseRecords
-                        .Select(r => r.Budget)
-                        .FirstOrDefault();
-
-                    decimal sumOfFilteredExpenses = filteredExpenseRecords
-                        .Select(r => r.Expenses)
-                        .Sum();
-
-                    txtTotalBudgetR.Text = selectedQuarterBudget.ToString();
-                    txtTotalExpensesR.Text = sumOfFilteredExpenses.ToString();
                 }
                 else
                 {
                     filteredExpenseRecords = expenseRecords
                         .Where(r => r.ManagerName == selectedManager)
                         .ToList();
-
-                    decimal sumOfFilteredBudget = filteredExpenseRecords
-                        .Select(r => r.Budget)
-                        .Distinct()
-                        .Sum();
-
-                    decimal sumOfFilteredExpenses = filteredExpenseRecords
-                        .Select(r => r.Expenses)
-                        .Sum();
-
-                    txtTotalBudgetR.Text = sumOfFilteredBudget.ToString();
-                    txtTotalExpensesR.Text = sumOfFilteredExpenses.ToString();
                 }
             }
             else if (selectedQuarterIndex != 0)
@@ -414,36 +391,20 @@ namespace MoraleExpenseTracker
                 filteredExpenseRecords = expenseRecords
                     .Where(r => r.Quarter == selectedQuarter)
                     .ToList();
-
-                decimal sumOfFilteredBudget = filteredExpenseRecords
-                    .Select(r => r.Budget)
-                    .Distinct()
-                    .Sum();
-
-                decimal sumOfFilteredExpenses = filteredExpenseRecords
-                    .Select(r => r.Expenses)
-                    .Sum();
-
-                txtTotalBudgetR.Text = sumOfFilteredBudget.ToString();
-                txtTotalExpensesR.Text = sumOfFilteredExpenses.ToString();
-            }
-            else
-            {
-                decimal sumOfFilteredBudget = expenseRecords
-                    .Select(r => r.Budget)
-                    .Distinct()
-                    .Sum();
-
-                decimal sumOfFilteredExpenses = expenseRecords
-                    .Select(r => r.Expenses)
-                    .Sum();
-
-                txtTotalBudgetR.Text = sumOfFilteredBudget.ToString();
-                txtTotalExpensesR.Text = sumOfFilteredExpenses.ToString();
             }
 
-           return filteredExpenseRecords;
-            
+            decimal sumOfFilteredBudget = filteredExpenseRecords
+                .GroupBy(r => new { r.ManagerName, r.Quarter })
+                .Select(group => group.OrderByDescending(r => r.BudgetAllocatedDate).First().Budget)
+                .Sum();
+
+            decimal sumOfFilteredExpenses = filteredExpenseRecords
+                .Sum(r => r.Expenses);
+
+            txtTotalBudgetR.Text = sumOfFilteredBudget.ToString();
+            txtTotalExpensesR.Text = sumOfFilteredExpenses.ToString();
+
+            return filteredExpenseRecords;
         }
 
         private void BindReportsGridView()
