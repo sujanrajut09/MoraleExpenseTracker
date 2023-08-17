@@ -62,7 +62,7 @@
                 <!-- Content for Admin tab goes here -->
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <asp:Label ID="Label1" runat="server" AssociatedControlID="ddlManagerA">Manager:</asp:Label>
+                        <asp:Label ID="lblManagerA" runat="server" AssociatedControlID="ddlManagerA">Manager:</asp:Label>
                         <asp:DropDownList ID="ddlManagerA" runat="server" CssClass="form-control" AutoPostBack="true"></asp:DropDownList>
                     </div>
                     <div class="form-group col-md-3">

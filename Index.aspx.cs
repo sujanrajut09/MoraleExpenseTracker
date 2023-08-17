@@ -20,7 +20,6 @@ namespace MoraleExpenseTracker
             {
                 BindManagerDropdownsInAllTabs();
             }
-
         }
 
         #region Tabs
@@ -111,7 +110,7 @@ namespace MoraleExpenseTracker
 
             string newManagerName = txtNewManagerName.Text.Trim();
             dataAccess.InsertManager(newManagerName);
-            lblMsgA.Text = "Manger added successfully!";
+            lblMsgA.Text = "Manager added successfully!";
             BindManagerDropdownsInAllTabs();
 
         }
