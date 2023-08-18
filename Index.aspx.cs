@@ -111,7 +111,6 @@ namespace MoraleExpenseTracker
             BindManagerDropdownsInAllTabs();
 
         }
-
         protected void btnDelManager_Click(object sender, EventArgs e)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
@@ -122,7 +121,10 @@ namespace MoraleExpenseTracker
             lblMsgA.Text = "Manager deleted successfully!";
             BindManagerDropdownsInAllTabs();
         }
-
+        protected void btnGetExpenseA_Click(object sender, EventArgs e)
+        {
+            BindExpenseRecordToRepeater();
+        }
         private void BindManagerDropdownsInAllTabs()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
@@ -185,9 +187,6 @@ namespace MoraleExpenseTracker
                 }
             }
         }
-
-        
-
         private void SaveAdminData()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
@@ -220,6 +219,44 @@ namespace MoraleExpenseTracker
             }
 
         }
+
+        protected void rptExpenses_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+
+            if (e.CommandName == "Update")
+            {
+                int expenseId = Convert.ToInt32(e.CommandArgument);
+                TextBox txtRptExpenses = e.Item.FindControl("txtRptExpenses") as TextBox;
+                TextBox txtRptDescription = e.Item.FindControl("txtRptDescription") as TextBox;
+
+                decimal expenses = Convert.ToDecimal(txtRptExpenses.Text.Trim());
+                string description = txtRptDescription.Text.Trim();
+
+                dataAccess.UpdateExpense(expenseId, expenses, description);
+
+                lblMsgA.Text = "Expense updated successfully!";
+                BindExpenseRecordToRepeater();
+                BindManagerGrid();
+                BindReportsGridView();
+            }
+        }
+        private void BindExpenseRecordToRepeater()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+
+            int expenseId = Convert.ToInt32(txtExpenseIdA.Text.Trim());
+
+            ExpenseRecord expenseRecord = dataAccess.GetAllExpenseRecords().FirstOrDefault(x => x.ExpenseId == expenseId);
+
+            rptExpenses.DataSource = new List<ExpenseRecord> { expenseRecord };
+            rptExpenses.DataBind();
+        }
+
+
+
         #endregion
 
         #region ManagerTab
@@ -531,11 +568,6 @@ namespace MoraleExpenseTracker
             txtAdminUsername.Text = string.Empty;
             txtAdminPassword.Text = string.Empty;
 
-            rfvAdminUsername.ErrorMessage = string.Empty;
-            rfvAdminPassword.ErrorMessage = string.Empty;
-            rfvAdminUsername.IsValid = true;
-            rfvAdminPassword.IsValid = true;
-
             lblAdminLoginError.Text = string.Empty;
         }
         private void ClearAdminView()
@@ -550,6 +582,12 @@ namespace MoraleExpenseTracker
             txtTotalBudget.Text = string.Empty;
             txtNewManagerName.Text = string.Empty; 
 
+            txtDescriptionA.Text = string.Empty;
+            txtExpenseIdA.Text = string.Empty;
+
+            rptExpenses.DataSource = null;
+            rptExpenses.DataBind();
+
             lblMsgASave.Text = string.Empty;
             lblMsgA.Text = string.Empty;
         }
@@ -558,9 +596,12 @@ namespace MoraleExpenseTracker
             ddlManagerM.SelectedIndex = 0;
             ddlYearM.SelectedIndex = 0;
             ddlQuarterM.SelectedIndex = 0;
+
             txtBudgetM.Text = string.Empty;
             txtHcM.Text = string.Empty;
             txtExpenseM.Text = string.Empty;
+            txtDescriptionM.Text = string.Empty;
+
             gvManager.DataSource = null;
             gvManager.DataBind();
 

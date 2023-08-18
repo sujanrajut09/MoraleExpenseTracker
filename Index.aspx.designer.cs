@@ -258,22 +258,22 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.TextBox txtHcA;
 
         /// <summary>
-        /// rfvHc control.
+        /// rfvHcA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvHc;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvHcA;
 
         /// <summary>
-        /// revHc control.
+        /// revHcA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revHc;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revHcA;
 
         /// <summary>
         /// lblBudget control.
@@ -438,6 +438,42 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.Button btnDelManager;
 
         /// <summary>
+        /// lblEditExpenseA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEditExpenseA;
+
+        /// <summary>
+        /// txtExpenseIdA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtExpenseIdA;
+
+        /// <summary>
+        /// rfvEditExpenseA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEditExpenseA;
+
+        /// <summary>
+        /// btnEditExpenseA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditExpenseA;
+
+        /// <summary>
         /// lblMsgA control.
         /// </summary>
         /// <remarks>
@@ -445,6 +481,15 @@ namespace MoraleExpenseTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMsgA;
+
+        /// <summary>
+        /// rptExpenses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptExpenses;
 
         /// <summary>
         /// viewManager control.

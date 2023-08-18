@@ -6,7 +6,13 @@
     <title>Morale Expense Tracker</title>
     <!-- Add Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js">
+    </script>
+    <style>
+        .btn-same-size {
+            width: 150px; /* Adjust the width as needed */
+        }
+    </style>
 </head>
 <body style="background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8)">
     <form id="form2" runat="server">
@@ -47,7 +53,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-md-3">
-                            <asp:Button ID="btnAdminLogin" runat="server" Text="Login" OnClick="btnAdminLogin_Click" CssClass="btn btn-primary" ValidationGroup="AdminLoginValidation" />
+                            <asp:Button ID="btnAdminLogin" runat="server" Text="Login" OnClick="btnAdminLogin_Click" CssClass="btn btn-primary btn-same-size" ValidationGroup="AdminLoginValidation" />
                         </div>
                     </div>
                     <div class="form-row">
@@ -105,15 +111,15 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblHc" runat="server" AssociatedControlID="txtHcA">No. of Reportees:</asp:Label>
-                        <asp:TextBox ID="txtHcA" runat="server" CssClass="form-control"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvHc" runat="server" ControlToValidate="txtHcA"
+                        <asp:TextBox ID="txtHcA" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvHcA" runat="server" ControlToValidate="txtHcA"
                             ErrorMessage="Reportees count is required" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
-                        <asp:RegularExpressionValidator ID="revHc" runat="server" ControlToValidate="txtHcA"
+                        <asp:RegularExpressionValidator ID="revHcA" runat="server" ControlToValidate="txtHcA"
                             ValidationExpression="^\d+$" ErrorMessage="Invalid head count" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
                     </div>
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblBudget" runat="server" AssociatedControlID="txtBudget">Budget per Reportee:</asp:Label>
-                        <asp:TextBox ID="txtBudget" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtBudget" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvBudget" runat="server" ControlToValidate="txtBudget"
                             ErrorMessage="Budget per Reporteee is required" CssClass="text-danger" ValidationGroup="AdminSaveGroup" Display="Dynamic" />
                         <asp:RegularExpressionValidator ID="revBudget" runat="server" ControlToValidate="txtBudget"
@@ -129,17 +135,11 @@
                         <asp:Label ID="lblDescriptionA" runat="server" AssociatedControlID="txtDescriptionA">Description:</asp:Label>
                         <asp:TextBox ID="txtDescriptionA" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2"></asp:TextBox>
                     </div>
-                </div>
-                <div class="form-row align-items-center">
-                    <div class="col-auto">
-                        <asp:Button ID="btnSaveA" runat="server" Text="Save" OnClick="btnSaveA_Click" CssClass="btn btn-primary" ValidationGroup="AdminSaveGroup" />
-                    </div>
-                    <div class="col-auto">
+                    <div class="form-group col-md-3 align-self-end">
+                        <asp:Button ID="btnSaveA" runat="server" Text="Save" OnClick="btnSaveA_Click" CssClass="btn btn-primary btn-same-size" ValidationGroup="AdminSaveGroup" />
                         <asp:Label ID="lblMsgASave" runat="server" CssClass="text-success"></asp:Label>
                     </div>
                 </div>
-                <br />
-                <br />
                 <div class="row">
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblNewManagerName" runat="server" AssociatedControlID="txtNewManagerName">Add Manager:</asp:Label>
@@ -152,7 +152,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <asp:Button ID="btnSaveNewManager" runat="server" Text="Add Manager" OnClick="btnSaveNewManager_Click"
-                            CssClass="btn btn-primary" ValidationGroup="AddManagerGroup" />
+                            CssClass="btn btn-primary btn-same-size" ValidationGroup="AddManagerGroup" />
                     </div>
                 </div>
                 <div class="row">
@@ -168,15 +168,57 @@
                     </div>
                     <div class="form-group col-md-3">
                         <asp:Button ID="btnDelManager" runat="server" Text="Delete Manager" OnClick="btnDelManager_Click"
-                            CssClass="btn btn-primary" ValidationGroup="DeleteManagerGroup" />
+                            CssClass="btn btn-primary btn-same-size" ValidationGroup="DeleteManagerGroup" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <asp:Label ID="lblEditExpenseA" runat="server" AssociatedControlID="txtExpenseIdA">Edit Expense:</asp:Label>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <asp:TextBox ID="txtExpenseIdA" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvEditExpenseA" runat="server" ControlToValidate="txtExpenseIdA"
+                            ErrorMessage="ExpenseId is required" CssClass="text-danger" Display="Dynamic"
+                            ValidationGroup="EditExpense" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <asp:Button ID="btnEditExpenseA" runat="server" Text="Get Expense" OnClick="btnGetExpenseA_Click" CssClass="btn btn-primary btn-same-size" ValidationGroup="EditExpenseGroup" />
                     </div>
                 </div>
                 <div class="form-row">
                     <asp:Label ID="lblMsgA" runat="server" CssClass="text-success"></asp:Label>
                 </div>
-
+                <div class="mt-4">
+                    <asp:Repeater ID="rptExpenses" runat="server" OnItemCommand="rptExpenses_ItemCommand">
+                        <HeaderTemplate>
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ExpenseId</th>
+                                        <th>ManagerName</th>
+                                        <th>Expenses</th>
+                                        <th>Description</th>
+                                        <th class="text-center">Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td><%# Eval("ExpenseId") %></td>
+                                <td><%# Eval("ManagerName") %></td>
+                                <td>
+                                    <asp:TextBox ID="txtRptExpenses" runat="server" CssClass="form-control" TextMode="Number" Text='<%# Eval("Expenses") %>'></asp:TextBox></td>
+                                <td>
+                                    <asp:TextBox ID="txtRptDescription" runat="server" CssClass="form-control" Text='<%# Eval("Description") %>'></asp:TextBox></td>
+                                <td class="text-center">
+                                    <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandName="Update" CommandArgument='<%# Eval("ExpenseId") %>' CssClass="btn btn-primary" />
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
             </asp:View>
-
             <asp:View ID="viewManager" runat="server">
                 <!-- Content for Manager tab goes here -->
                 <div class="form-row">
@@ -231,7 +273,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblExpense" runat="server" AssociatedControlID="txtExpenseM">Expense:</asp:Label>
-                        <asp:TextBox ID="txtExpenseM" runat="server" CssClass="form-control" AutoPostBack="true"></asp:TextBox>
+                        <asp:TextBox ID="txtExpenseM" runat="server" CssClass="form-control" AutoPostBack="true" TextMode="Number"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvExpense" runat="server" ControlToValidate="txtExpenseM"
                             ValidationGroup="ManagerValidation" ErrorMessage="Expense amount is required" CssClass="text-danger" Display="Dynamic" />
                         <asp:RegularExpressionValidator ID="revExpense" runat="server" ControlToValidate="txtExpenseM"
@@ -239,7 +281,6 @@
                     </div>
                 </div>
                 <div class="form-row">
-
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblDescriptionM" runat="server" AssociatedControlID="txtDescriptionA">Description:</asp:Label>
                         <asp:TextBox ID="txtDescriptionM" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2"></asp:TextBox>
@@ -247,7 +288,7 @@
                 </div>
                 <div class="form-row">
                     <div class="col-auto">
-                        <asp:Button ID="btnSaveM" runat="server" Text="Save" OnClick="btnSaveM_Click" CssClass="btn btn-primary" ValidationGroup="ManagerValidation" />
+                        <asp:Button ID="btnSaveM" runat="server" Text="Save" OnClick="btnSaveM_Click" CssClass="btn btn-primary btn-same-size" ValidationGroup="ManagerValidation" />
                     </div>
                     <div class="col-md-6">
                         <asp:Label ID="lblMsgM" runat="server" CssClass="text-success"></asp:Label>
@@ -305,7 +346,7 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-12 text-right">
-                        <asp:Button ID="btnExcelExport" runat="server" Text="Export to Excel" OnClick="btnExcelExport_Click" CssClass="btn btn-primary" />
+                        <asp:Button ID="btnExcelExport" runat="server" Text="Export to Excel" OnClick="btnExcelExport_Click" CssClass="btn btn-primary btn-same-size" />
                     </div>
                 </div>
                 <asp:GridView ID="gvReports" runat="server" CssClass="table table-striped table-bordered"

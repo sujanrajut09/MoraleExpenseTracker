@@ -107,6 +107,33 @@ namespace MoraleExpenseTracker
             }
 
         }
+        public void UpdateExpense(int expenseId, decimal expenses, string description)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_UpdateExpense", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameters
+                    command.Parameters.Add("@ExpenseId", SqlDbType.Int).Value = expenseId;
+                    command.Parameters.Add("@Expenses", SqlDbType.Decimal).Value = expenses;
+                    command.Parameters.Add("@Description", SqlDbType.VarChar, -1).Value = description;
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        // Handle exceptions
+                        throw new Exception("An error occurred while updating expense: " + ex.Message);
+                    }
+                }
+            }
+        }
+
 
         public void DeactivateManager(int managerId)
         {
