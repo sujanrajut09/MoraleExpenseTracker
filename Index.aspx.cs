@@ -88,12 +88,6 @@ namespace MoraleExpenseTracker
                 lblAdminLoginError.Text = "Invalid username or password.";
             }
         }
-        private bool IsValidAdminLogin(string username, string password)
-        {
-            // Implement your admin login validation logic here
-            // Return true if the login is valid, otherwise return false
-            return true;
-        }
         protected void btnLogout_Click(object sender, EventArgs e)
         {
             Session.Clear();
@@ -236,9 +230,9 @@ namespace MoraleExpenseTracker
             int managerId = Convert.ToInt32(ddlManagerM.SelectedValue);
             int year = Convert.ToInt32(ddlYearM.SelectedValue);
             string quarter = ddlQuarterM.SelectedValue;
-            decimal budget = Convert.ToDecimal(txtBudgetM.Text);
-            decimal expense = Convert.ToDecimal(txtExpenseM.Text);
-            int headCount = Convert.ToInt32(txtHcM.Text);
+            decimal budget = Convert.ToDecimal(txtBudgetM.Text.Trim());
+            decimal expense = Convert.ToDecimal(txtExpenseM.Text.Trim());
+            int headCount = Convert.ToInt32(txtHcM.Text.Trim());
             string description = txtDescriptionM.Text.Trim();
             DateTime expenseDate = DateTime.Now;
 
