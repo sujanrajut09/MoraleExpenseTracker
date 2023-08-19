@@ -421,57 +421,6 @@ namespace MoraleExpenseTracker
             }
         }
 
-        private List<ExpenseRecord> ReportsResultSet1()
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
-
-            int selectedManagerIndex = ddlManagerR.SelectedIndex;
-            int selectedYearIndex = ddlYearR.SelectedIndex;
-            int selectedQuarterIndex = ddlQuarterR.SelectedIndex;
-
-            List<ExpenseRecord> expenseRecords = dataAccess.GetAllExpenseRecords();
-            List<ExpenseRecord> filteredExpenseRecords = expenseRecords; // Initialize with all records
-
-            if (selectedManagerIndex != 0)
-            {
-                string selectedManager = ddlManagerR.SelectedItem.ToString();
-
-                if (selectedQuarterIndex != 0)
-                {
-                    string selectedQuarter = ddlQuarterR.SelectedItem.ToString();
-                    filteredExpenseRecords = expenseRecords
-                        .Where(r => r.ManagerName == selectedManager && r.Quarter == selectedQuarter)
-                        .ToList();
-                }
-                else
-                {
-                    filteredExpenseRecords = expenseRecords
-                        .Where(r => r.ManagerName == selectedManager)
-                        .ToList();
-                }
-            }
-            else if (selectedQuarterIndex != 0)
-            {
-                string selectedQuarter = ddlQuarterR.SelectedItem.ToString();
-                filteredExpenseRecords = expenseRecords
-                    .Where(r => r.Quarter == selectedQuarter)
-                    .ToList();
-            }
-
-            decimal sumOfFilteredBudget = filteredExpenseRecords
-                .GroupBy(r => new { r.ManagerName, r.Quarter })
-                .Select(group => group.OrderByDescending(r => r.BudgetAllocatedDate).First().Budget)
-                .Sum();
-
-            decimal sumOfFilteredExpenses = filteredExpenseRecords
-                .Sum(r => r.Expenses);
-
-            txtTotalBudgetR.Text = sumOfFilteredBudget.ToString();
-            txtTotalExpensesR.Text = sumOfFilteredExpenses.ToString();
-
-            return filteredExpenseRecords;
-        }
         private List<ExpenseRecord> ReportsResultSet()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
