@@ -292,7 +292,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblExpense" runat="server" AssociatedControlID="txtExpenseM">Expense:</asp:Label>
-                        <asp:TextBox ID="txtExpenseM" runat="server" CssClass="form-control" AutoPostBack="true" TextMode="Number" Placeholder="Enter Expenses"></asp:TextBox>
+                        <asp:TextBox ID="txtExpenseM" runat="server" CssClass="form-control" AutoPostBack="true" TextMode="Number" Placeholder="Enter Expense"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvExpense" runat="server" ControlToValidate="txtExpenseM"
                             ValidationGroup="ManagerValidation" ErrorMessage="Expense amount is required" CssClass="text-danger" Display="Dynamic" />
                         <asp:RegularExpressionValidator ID="revExpense" runat="server" ControlToValidate="txtExpenseM"
