@@ -179,7 +179,7 @@
                         <asp:TextBox ID="txtExpenseIdA" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvEditExpenseA" runat="server" ControlToValidate="txtExpenseIdA"
                             ErrorMessage="ExpenseId is required" CssClass="text-danger" Display="Dynamic"
-                            ValidationGroup="EditExpense" />
+                            ValidationGroup="EditExpenseGroup" />
                     </div>
                     <div class="form-group col-md-3">
                         <asp:Button ID="btnEditExpenseA" runat="server" Text="Get Expense" OnClick="btnGetExpenseA_Click" CssClass="btn btn-primary btn-same-size" ValidationGroup="EditExpenseGroup" />
@@ -196,8 +196,15 @@
                                     <tr>
                                         <th>ExpenseId</th>
                                         <th>ManagerName</th>
+                                        <th>FinancialYear</th>
+                                        <th>Quarter</th>
+                                        <th>Reportees</th>
+                                        <th>Budget</th>
                                         <th>Expenses</th>
+                                        <th>Balance</th>
                                         <th>Description</th>
+                                        <th>BudgetDate</th>
+                                        <th>ExpenseDate</th>
                                         <th class="text-center">Update</th>
                                     </tr>
                                 </thead>
@@ -207,12 +214,23 @@
                             <tr>
                                 <td><%# Eval("ExpenseId") %></td>
                                 <td><%# Eval("ManagerName") %></td>
+                                <td><%# Eval("FinancialYear") %></td>
+                                <td><%# Eval("Quarter") %></td>
+                                <td><%# Eval("Reportees") %></td>
+                                <td><%# Eval("Budget") %></td>
                                 <td>
-                                    <asp:TextBox ID="txtRptExpenses" runat="server" CssClass="form-control" TextMode="Number" Text='<%# Eval("Expenses") %>'></asp:TextBox></td>
+                                    <asp:TextBox ID="txtRptExpenses" runat="server" CssClass="form-control" TextMode="Number" Text='<%# Eval("Expenses") %>'></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvRptExpenses" runat="server" ControlToValidate="txtRptExpenses" Display="Dynamic" Text="*" ForeColor="Red" ValidationGroup="RptExpenseValidationGroupA"></asp:RequiredFieldValidator>
+                                </td>
+                                <td><%# Eval("Balance") %></td>
                                 <td>
-                                    <asp:TextBox ID="txtRptDescription" runat="server" CssClass="form-control" Text='<%# Eval("Description") %>'></asp:TextBox></td>
+                                    <asp:TextBox ID="txtRptDescription" runat="server" TextMode="MultiLine" Rows="2" CssClass="form-control" Text='<%# Eval("Description") %>'></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="rfvRptDescription" runat="server" ControlToValidate="txtRptDescription" Display="Dynamic" Text="*" ForeColor="Red" ValidationGroup="RptExpenseValidationGroupA"></asp:RequiredFieldValidator>
+                                </td>
+                                <td><%# Eval("BudgetAllocatedDate") %></td>
+                                <td><%# Eval("ExpenseDate") %></td>
                                 <td class="text-center">
-                                    <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandName="Update" CommandArgument='<%# Eval("ExpenseId") %>' CssClass="btn btn-primary" />
+                                    <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandName="Update" CommandArgument='<%# Eval("ExpenseId") %>' CssClass="btn btn-primary" ValidationGroup="RptExpenseValidationGroupA" />
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -297,7 +315,7 @@
                 </div>
                 <div class="mt-4">
                     <asp:GridView ID="gvManager" runat="server" CssClass="table table-striped table-bordered"
-                        AutoGenerateColumns="true" PageSize="10" AllowPaging="True" OnPageIndexChanging="gvManager_PageIndexChanging">
+                        AutoGenerateColumns="true" PageSize="5" AllowPaging="True" OnPageIndexChanging="gvManager_PageIndexChanging">
                     </asp:GridView>
                 </div>
             </asp:View>
@@ -346,7 +364,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-12 text-right">
+                     <div class="col-md-12 text-right">
                         <asp:Button ID="btnExcelExport" runat="server" Text="Export to Excel" OnClick="btnExcelExport_Click" CssClass="btn btn-primary btn-same-size" />
                     </div>
                 </div>

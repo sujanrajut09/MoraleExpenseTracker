@@ -233,13 +233,12 @@ namespace MoraleExpenseTracker
 
                 decimal expenses = Convert.ToDecimal(txtRptExpenses.Text.Trim());
                 string description = txtRptDescription.Text.Trim();
+                DateTime expenseDate = DateTime.Now;
 
-                dataAccess.UpdateExpense(expenseId, expenses, description);
+                dataAccess.UpdateExpense(expenseId, expenses, description, expenseDate);
 
                 lblMsgA.Text = "Expense updated successfully!";
-                BindExpenseRecordToRepeater();
-                BindManagerGrid();
-                BindReportsGridView();
+                BindExpenseRecordToRepeater();               
             }
         }
         private void BindExpenseRecordToRepeater()
@@ -311,7 +310,7 @@ namespace MoraleExpenseTracker
         }
         protected void gvManager_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvReports.PageIndex = e.NewPageIndex;
+            gvManager.PageIndex = e.NewPageIndex;
             BindManagerGrid();
             multiViewTabs.ActiveViewIndex = 2;
         }

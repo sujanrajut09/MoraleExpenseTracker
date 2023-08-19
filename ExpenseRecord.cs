@@ -107,7 +107,7 @@ namespace MoraleExpenseTracker
             }
 
         }
-        public void UpdateExpense(int expenseId, decimal expenses, string description)
+        public void UpdateExpense(int expenseId, decimal expenses, string description, DateTime expenseDate)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -115,10 +115,10 @@ namespace MoraleExpenseTracker
                 {
                     command.CommandType = CommandType.StoredProcedure;
 
-                    // Add parameters
                     command.Parameters.Add("@ExpenseId", SqlDbType.Int).Value = expenseId;
                     command.Parameters.Add("@Expenses", SqlDbType.Decimal).Value = expenses;
                     command.Parameters.Add("@Description", SqlDbType.VarChar, -1).Value = description;
+                    command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
 
                     try
                     {
@@ -127,7 +127,6 @@ namespace MoraleExpenseTracker
                     }
                     catch (Exception ex)
                     {
-                        // Handle exceptions
                         throw new Exception("An error occurred while updating expense: " + ex.Message);
                     }
                 }
