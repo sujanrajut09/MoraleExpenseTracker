@@ -188,7 +188,7 @@
                 <div class="form-row">
                     <asp:Label ID="lblMsgA" runat="server" CssClass="text-success"></asp:Label>
                 </div>
-                <div class="mt-4">
+                <div class="form-row">
                     <asp:Repeater ID="rptExpenses" runat="server" OnItemCommand="rptExpenses_ItemCommand">
                         <HeaderTemplate>
                             <table class="table table-striped table-bordered">
@@ -219,6 +219,7 @@
                     </asp:Repeater>
                 </div>
             </asp:View>
+
             <asp:View ID="viewManager" runat="server">
                 <!-- Content for Manager tab goes here -->
                 <div class="form-row">
