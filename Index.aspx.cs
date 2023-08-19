@@ -39,7 +39,7 @@ namespace MoraleExpenseTracker
 
             ClearManagerView();
             ClearReportsDropdowns();
-        }        
+        }
         protected void btnManagerTab_Click(object sender, EventArgs e)
         {
             multiViewTabs.ActiveViewIndex = 2;
@@ -80,7 +80,7 @@ namespace MoraleExpenseTracker
             if (enteredUsername == adminUsername && enteredPassword == adminPassword)
             {
                 Session["AdminLoggedIn"] = true;
-                multiViewTabs.ActiveViewIndex = 1;              
+                multiViewTabs.ActiveViewIndex = 1;
             }
             else
             {
@@ -208,7 +208,7 @@ namespace MoraleExpenseTracker
                     command.Parameters.AddWithValue("@Year", year);
                     command.Parameters.AddWithValue("@Quarter", quarter);
                     command.Parameters.AddWithValue("@Budget", budget);
-                    command.Parameters.AddWithValue("@HeadCount", headCount);                    
+                    command.Parameters.AddWithValue("@HeadCount", headCount);
                     command.Parameters.AddWithValue("@Description", description);
                     command.Parameters.AddWithValue("@BudgetAllocatedDate", budgetAllocatedDate);
 
@@ -238,7 +238,7 @@ namespace MoraleExpenseTracker
                 dataAccess.UpdateExpense(expenseId, expenses, description, expenseDate);
 
                 lblMsgA.Text = "Expense updated successfully!";
-                BindExpenseRecordToRepeater();               
+                BindExpenseRecordToRepeater();
             }
         }
         private void BindExpenseRecordToRepeater()
@@ -250,11 +250,17 @@ namespace MoraleExpenseTracker
 
             ExpenseRecord expenseRecord = dataAccess.GetAllExpenseRecords().FirstOrDefault(x => x.ExpenseId == expenseId);
 
-            rptExpenses.DataSource = new List<ExpenseRecord> { expenseRecord };
-            rptExpenses.DataBind();
+            if (expenseRecord != null)
+            {
+                rptExpenses.DataSource = new List<ExpenseRecord> { expenseRecord };
+                rptExpenses.DataBind();
+            }
+            else
+            {
+                rptExpenses.DataSource = null;
+                rptExpenses.DataBind();
+            }
         }
-
-
 
         #endregion
 
@@ -321,7 +327,7 @@ namespace MoraleExpenseTracker
 
             string selectedManager = ddlManagerM.SelectedItem.ToString();
             string selectedYear = ddlYearM.SelectedValue;
-            string selectedQuarter = ddlQuarterM.SelectedValue;            
+            string selectedQuarter = ddlQuarterM.SelectedValue;
 
             List<ExpenseRecord> expenseRecords = dataAccess.GetAllExpenseRecords();
 
@@ -573,13 +579,13 @@ namespace MoraleExpenseTracker
         {
             ddlManagerA.SelectedIndex = 0;
             ddlYearA.SelectedIndex = 0;
-            ddlQuarter.SelectedIndex = 0; 
+            ddlQuarter.SelectedIndex = 0;
             ddlDelMgrName.SelectedIndex = 0;
 
             txtHcA.Text = string.Empty;
             txtBudget.Text = string.Empty;
             txtTotalBudget.Text = string.Empty;
-            txtNewManagerName.Text = string.Empty; 
+            txtNewManagerName.Text = string.Empty;
 
             txtDescriptionA.Text = string.Empty;
             txtExpenseIdA.Text = string.Empty;

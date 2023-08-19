@@ -133,7 +133,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblDescriptionA" runat="server" AssociatedControlID="txtDescriptionA">Description:</asp:Label>
-                        <asp:TextBox ID="txtDescriptionA" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                        <asp:TextBox ID="txtDescriptionA" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" Placeholder="Enter Description"></asp:TextBox>
                     </div>
                     <div class="form-group col-md-3 align-self-end">
                         <asp:Button ID="btnSaveA" runat="server" Text="Save" OnClick="btnSaveA_Click" CssClass="btn btn-primary btn-same-size" ValidationGroup="AdminSaveGroup" />
@@ -176,7 +176,7 @@
                         <asp:Label ID="lblEditExpenseA" runat="server" AssociatedControlID="txtExpenseIdA">Edit Expense:</asp:Label>
                     </div>
                     <div class="form-group col-md-3">
-                        <asp:TextBox ID="txtExpenseIdA" runat="server" CssClass="form-control" TextMode="Number"></asp:TextBox>
+                       <asp:TextBox ID="txtExpenseIdA" runat="server" CssClass="form-control" TextMode="Number" Placeholder="Enter Expense ID"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvEditExpenseA" runat="server" ControlToValidate="txtExpenseIdA"
                             ErrorMessage="ExpenseId is required" CssClass="text-danger" Display="Dynamic"
                             ValidationGroup="EditExpenseGroup" />
@@ -302,7 +302,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblDescriptionM" runat="server" AssociatedControlID="txtDescriptionA">Description:</asp:Label>
-                        <asp:TextBox ID="txtDescriptionM" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2"></asp:TextBox>
+                        <asp:TextBox ID="txtDescriptionM" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" Placeholder="Enter Description"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-row">
