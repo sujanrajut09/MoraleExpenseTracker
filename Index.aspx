@@ -145,7 +145,7 @@
                         <asp:Label ID="lblNewManagerName" runat="server" AssociatedControlID="txtNewManagerName">Add Manager:</asp:Label>
                     </div>
                     <div class="form-group col-md-3">
-                        <asp:TextBox ID="txtNewManagerName" runat="server" CssClass="form-control" Placeholder="Enter manager name"></asp:TextBox>
+                        <asp:TextBox ID="txtNewManagerName" runat="server" CssClass="form-control" Placeholder="Enter Manager Name"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvNewManagerName" runat="server" ControlToValidate="txtNewManagerName"
                             ErrorMessage="Manager name is required" CssClass="text-danger" Display="Dynamic"
                             ValidationGroup="AddManagerGroup" />
