@@ -196,7 +196,7 @@
                                     <tr>
                                         <th>ExpenseId</th>
                                         <th>ManagerName</th>
-                                        <th>FinancialYear</th>
+                                        <th>FY</th>
                                         <th>Quarter</th>
                                         <th>Reportees</th>
                                         <th>Budget</th>
