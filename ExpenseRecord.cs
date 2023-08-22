@@ -16,11 +16,13 @@ namespace MoraleExpenseTracker
     {
         public int ExpenseId { get; set; }
         public string ManagerName { get; set; }
+        public string FinancialYear { get; set; }
         public string Quarter { get; set; }
-        public int HeadCount { get; set; }
+        public int Reportees { get; set; }
         public decimal Budget { get; set; }
         public decimal Expenses { get; set; }
         public decimal Balance { get; set; }
+        public string Description { get; set; }
         public DateTime BudgetAllocatedDate { get; set; }
         public DateTime ExpenseDate { get; set; }
     }
@@ -54,10 +56,12 @@ namespace MoraleExpenseTracker
                             {
                                 ExpenseId = Convert.ToInt32(reader["Id"]),
                                 ManagerName = reader["ManagerName"].ToString(),
+                                FinancialYear = reader["Year"].ToString(),
                                 Quarter = reader["Quarter"].ToString(),
                                 Budget = Convert.ToDecimal(reader["Budget"]),
                                 Balance = Convert.ToDecimal(reader["Balance"]),
-                                HeadCount = Convert.ToInt32(reader["HeadCount"]),
+                                Reportees = Convert.ToInt32(reader["HeadCount"]),
+                                Description = reader["Description"].ToString(),
                                 BudgetAllocatedDate = Convert.ToDateTime(reader["BudgetAllocatedDate"])
                             };
 
@@ -103,6 +107,32 @@ namespace MoraleExpenseTracker
             }
 
         }
+        public void UpdateExpense(int expenseId, decimal expenses, string description, DateTime expenseDate)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_UpdateExpense", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    command.Parameters.Add("@ExpenseId", SqlDbType.Int).Value = expenseId;
+                    command.Parameters.Add("@Expenses", SqlDbType.Decimal).Value = expenses;
+                    command.Parameters.Add("@Description", SqlDbType.VarChar, -1).Value = description;
+                    command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
+
+                    try
+                    {
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("An error occurred while updating expense: " + ex.Message);
+                    }
+                }
+            }
+        }
+
 
         public void DeactivateManager(int managerId)
         {

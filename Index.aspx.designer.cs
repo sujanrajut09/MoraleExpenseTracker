@@ -168,6 +168,24 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.DropDownList ddlManagerA;
 
         /// <summary>
+        /// lblYearA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblYearA;
+
+        /// <summary>
+        /// ddlYearA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlYearA;
+
+        /// <summary>
         /// lblQuarter control.
         /// </summary>
         /// <remarks>
@@ -204,6 +222,15 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvManagerA;
 
         /// <summary>
+        /// rfvYearA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvYearA;
+
+        /// <summary>
         /// rfvQuarter control.
         /// </summary>
         /// <remarks>
@@ -222,31 +249,31 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.Label lblHc;
 
         /// <summary>
-        /// txtHc control.
+        /// txtHcA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHc;
+        protected global::System.Web.UI.WebControls.TextBox txtHcA;
 
         /// <summary>
-        /// rfvHc control.
+        /// rfvHcA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvHc;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvHcA;
 
         /// <summary>
-        /// revHc control.
+        /// revHcA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revHc;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revHcA;
 
         /// <summary>
         /// lblBudget control.
@@ -301,6 +328,24 @@ namespace MoraleExpenseTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTotalBudget;
+
+        /// <summary>
+        /// lblDescriptionA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDescriptionA;
+
+        /// <summary>
+        /// txtDescriptionA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDescriptionA;
 
         /// <summary>
         /// btnSaveA control.
@@ -393,6 +438,42 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.Button btnDelManager;
 
         /// <summary>
+        /// lblEditExpenseA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblEditExpenseA;
+
+        /// <summary>
+        /// txtExpenseIdA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtExpenseIdA;
+
+        /// <summary>
+        /// rfvEditExpenseA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEditExpenseA;
+
+        /// <summary>
+        /// btnEditExpenseA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditExpenseA;
+
+        /// <summary>
         /// lblMsgA control.
         /// </summary>
         /// <remarks>
@@ -400,6 +481,15 @@ namespace MoraleExpenseTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMsgA;
+
+        /// <summary>
+        /// rptExpenses control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptExpenses;
 
         /// <summary>
         /// viewManager control.
@@ -436,6 +526,24 @@ namespace MoraleExpenseTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvManagerM;
+
+        /// <summary>
+        /// lblYearM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblYearM;
+
+        /// <summary>
+        /// ddlYearM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlYearM;
 
         /// <summary>
         /// lblQuarterM control.
@@ -528,13 +636,13 @@ namespace MoraleExpenseTracker
         protected global::System.Web.UI.WebControls.Label lblExpense;
 
         /// <summary>
-        /// txtExpense control.
+        /// txtExpenseM control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtExpense;
+        protected global::System.Web.UI.WebControls.TextBox txtExpenseM;
 
         /// <summary>
         /// rfvExpense control.
@@ -553,6 +661,24 @@ namespace MoraleExpenseTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revExpense;
+
+        /// <summary>
+        /// lblDescriptionM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDescriptionM;
+
+        /// <summary>
+        /// txtDescriptionM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDescriptionM;
 
         /// <summary>
         /// btnSaveM control.
@@ -607,6 +733,24 @@ namespace MoraleExpenseTracker
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlManagerR;
+
+        /// <summary>
+        /// lblYearR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblYearR;
+
+        /// <summary>
+        /// ddlYearR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlYearR;
 
         /// <summary>
         /// lblQyarterR control.
