@@ -7,22 +7,24 @@
     <!-- Add Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="CSS/IndexPageStyleSheet.css" rel="stylesheet" />
+    
 </head>
-<body style="background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8)">
+<body>
     <form id="form2" runat="server">
-        <header style="font-family: Georgia, Times, serif">
-            <nav style="display: flex; justify-content: space-between; padding: 1rem 3rem; align-items: center; background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8);">
+        <header>
+            <nav>
                 <div class="logo">
-                    <img style="width: 80px; height: 80px; border-radius: 41px; outline: 4px solid red;" src="CSS/Images/Financial-Management.png" />
+                    <img src="CSS/Images/Financial-Management.png"/>
                 </div>
                 <div>
-                    <h1 style="font-size: 2rem; margin-bottom: 0.3rem; text-align: center; font-family: serif;">DAS MORALE EXPENSE TARCKER </h1>
+                    <h1>DAS - MORALE EXPENSE TARCKER</h1>
                 </div>
                 <!-- Tab buttons -->
-                <div class="nav nav-tabs" id="myTab" role="tablist" style="display: flex; align-items: stretch; gap: 2px;">
-                    <asp:Button ID="btnAdminTab" runat="server" Text="Admin" OnClick="btnAdminTab_Click" CssClass="nav-link" Style="font-size: 1rem; padding: 0.6rem 1rem; font-weight: bold; color: white; background: linear-gradient(to right, #283048, #859398); border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; cursor: pointer; border: none;" />
-                    <asp:Button ID="btnManagerTab" runat="server" Text="Manager" OnClick="btnManagerTab_Click" CssClass="nav-link" Style="font-size: 1rem; padding: 0.6rem 1rem; font-weight: bold; color: white; background: linear-gradient(to right, #283048, #859398); border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; cursor: pointer; border: none;" />
-                    <asp:Button ID="btnReportsTab" runat="server" Text="Reports" OnClick="btnReportsTab_Click" CssClass="nav-link" Style="font-size: 1rem; padding: 0.6rem 1rem; font-weight: bold; color: white; background: linear-gradient(to right, #283048, #859398); border-radius: 10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; cursor: pointer; border: none;" />
+                <div class="nav nav-tabs" id="myTab" role="tablist">
+                    <asp:Button ID="btnAdminTab" runat="server" Text="Admin" OnClick="btnAdminTab_Click" CssClass="nav-link" />
+                    <asp:Button ID="btnManagerTab" runat="server" Text="Manager" OnClick="btnManagerTab_Click" CssClass="nav-link" />
+                    <asp:Button ID="btnReportsTab" runat="server" Text="Reports" OnClick="btnReportsTab_Click" CssClass="nav-link"  />
                 </div>
             </nav>
         </header>
@@ -255,7 +257,7 @@
             </asp:View>
         </asp:MultiView>
 
-        <div style="position: fixed; text-align: center; width: 100%; bottom: 0; background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8); display: flex; justify-content: center; align-items: center; height: 2.5rem;" class="form-row">
+        <div class="Footer">
             <footer>
                 MICROSOFT CONFIDENTIAL! FOR INTERNAL USE ONLY.
             </footer>

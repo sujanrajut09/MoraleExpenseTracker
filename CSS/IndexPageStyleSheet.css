@@ -1,0 +1,60 @@
+﻿
+body {
+    background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8);
+    font-family: Georgia, Times, serif;
+    
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    align-items: center;
+}
+.logo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 41px;
+    outline: 4px solid red;
+    }
+h1 {
+    font-size: 2rem; 
+    margin-bottom: 0.3rem; 
+    text-align: center; 
+    font-family: serif;
+}
+.nav nav-tabs {
+    display: flex;
+    align-items: stretch;
+    gap: 2px;
+}
+#btnAdminTab, #btnManagerTab, #btnReportsTab {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+    background: linear-gradient(to right, #283048, #859398);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    cursor: pointer;
+    border: none;
+}
+.nav-link:hover {
+    color: Green;
+} 
+
+#myTab:active {
+    background-color: #4bc0c8;
+}
+
+.Footer {
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.5rem;
+}
