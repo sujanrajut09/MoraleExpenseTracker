@@ -4,8 +4,10 @@ body {
     font-family: Georgia, Times, serif;
     
 }
-
-nav {
+.btn-same-size {
+    width: 150px;
+}
+    nav {
     display: flex;
     justify-content: space-between;
     padding: 1rem 3rem;
