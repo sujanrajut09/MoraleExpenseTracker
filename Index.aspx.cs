@@ -27,9 +27,9 @@ namespace MoraleExpenseTracker
         protected void btnAdminTab_Click(object sender, EventArgs e)
         {
             multiViewTabs.ActiveViewIndex = 0;
-            btnAdminTab.CssClass = "nav-link bg-grey";
-            btnManagerTab.CssClass = "nav-link bg-white";
-            btnReportsTab.CssClass = "nav-link bg-white";
+            //btnAdminTab.CssClass = "nav-link bg-grey";
+            //btnManagerTab.CssClass = "nav-link bg-white";
+            //btnReportsTab.CssClass = "nav-link bg-white";
 
             bool isAdminLoggedIn = Session["AdminLoggedIn"] != null && (bool)Session["AdminLoggedIn"];
             if (isAdminLoggedIn)
@@ -43,9 +43,9 @@ namespace MoraleExpenseTracker
         protected void btnManagerTab_Click(object sender, EventArgs e)
         {
             multiViewTabs.ActiveViewIndex = 2;
-            btnAdminTab.CssClass = "nav-link bg-white";
-            btnManagerTab.CssClass = "nav-link bg-grey";
-            btnReportsTab.CssClass = "nav-link bg-white";
+            //btnAdminTab.CssClass = "nav-link bg-white";
+            //btnManagerTab.CssClass = "nav-link bg-grey";
+            //btnReportsTab.CssClass = "nav-link bg-white";
             BindManagerDropdownsInAllTabs();
 
             ClearAdminLoginForm();
@@ -57,9 +57,9 @@ namespace MoraleExpenseTracker
         {
             multiViewTabs.ActiveViewIndex = 3;
             BindReportsGridView();
-            btnAdminTab.CssClass = "nav-link bg-white";
-            btnManagerTab.CssClass = "nav-link bg-white";
-            btnReportsTab.CssClass = "nav-link bg-grey";
+            //btnAdminTab.CssClass = "nav-link bg-white";
+            //btnManagerTab.CssClass = "nav-link bg-white";
+            //btnReportsTab.CssClass = "nav-link bg-grey";
 
             ClearAdminLoginForm();
             ClearAdminView();
