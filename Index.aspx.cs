@@ -259,6 +259,8 @@ namespace MoraleExpenseTracker
             {
                 rptExpenses.DataSource = null;
                 rptExpenses.DataBind();
+                lblMsgA.Text = "Invalid Expense!";
+                lblMsgA.CssClass = "text-danger";
             }
         }
 
@@ -514,6 +516,7 @@ namespace MoraleExpenseTracker
             gvReports.DataSource = ReportsResultSet();
             gvReports.DataBind();
         }
+
         #endregion
 
         #region ClearOff
