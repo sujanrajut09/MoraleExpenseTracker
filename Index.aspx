@@ -21,9 +21,9 @@
                 </div>
                 <!-- Tab buttons -->
                 <div class="nav nav-tabs" id="myTab" role="tablist">
-                    <asp:Button ID="btnAdminTab" runat="server" Text="Admin" OnClick="btnAdminTab_Click" CssClass="nav-link" />
-                    <asp:Button ID="btnManagerTab" runat="server" Text="Manager" OnClick="btnManagerTab_Click" CssClass="nav-link" />
-                    <asp:Button ID="btnReportsTab" runat="server" Text="Reports" OnClick="btnReportsTab_Click" CssClass="nav-link" />
+                    <asp:Button ID="btnAdminTab" runat="server" Text="Admin" OnClick="btnAdminTab_Click" CssClass="nav-link1" class="btn1" />
+                    <asp:Button ID="btnManagerTab" runat="server" Text="Manager" OnClick="btnManagerTab_Click" CssClass="nav-link" class="btn2"/>
+                    <asp:Button ID="btnReportsTab" runat="server" Text="Reports" OnClick="btnReportsTab_Click" CssClass="nav-link"class="btn3" />
                 </div>
             </nav>
         </header>

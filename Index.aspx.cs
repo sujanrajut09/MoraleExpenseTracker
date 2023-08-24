@@ -26,6 +26,11 @@ namespace MoraleExpenseTracker
         #region Tabs
         protected void btnAdminTab_Click(object sender, EventArgs e)
         {
+            
+            btnAdminTab.Style.Add("background-color", "green");
+            btnManagerTab.Style.Add("background-color", "red");
+            btnReportsTab.Style.Add("background-color", "red");
+
             multiViewTabs.ActiveViewIndex = 0;
             //btnAdminTab.CssClass = "nav-link bg-grey";
             //btnManagerTab.CssClass = "nav-link bg-white";
@@ -42,6 +47,9 @@ namespace MoraleExpenseTracker
         }
         protected void btnManagerTab_Click(object sender, EventArgs e)
         {
+            btnAdminTab.Style.Add("background-color", "red");
+            btnManagerTab.Style.Add("background-color", "green");
+            btnReportsTab.Style.Add("background-color", "red");
             multiViewTabs.ActiveViewIndex = 2;
             //btnAdminTab.CssClass = "nav-link bg-white";
             //btnManagerTab.CssClass = "nav-link bg-grey";
@@ -55,6 +63,9 @@ namespace MoraleExpenseTracker
         }
         protected void btnReportsTab_Click(object sender, EventArgs e)
         {
+            btnAdminTab.Style.Add("background-color", "red");
+            btnManagerTab.Style.Add("background-color", "red");
+            btnReportsTab.Style.Add("background-color", "green");
             multiViewTabs.ActiveViewIndex = 3;
             BindReportsGridView();
             //btnAdminTab.CssClass = "nav-link bg-white";
