@@ -35,19 +35,24 @@ h1 {
     font-size: 1rem;
     padding: 0.6rem 1rem;
     font-weight: bold;
-    color: white;
+    color: black;
     border-radius: 10px;
-    /*background: linear-gradient(to right, #FFAFBD 0%, #ffc3a0 51%, #FFAFBD 100%);*/
+    border-color: aqua;
+  /*  background-image: linear-gradient(to right, #FFAFBD 0%, #ffc3a0 51%, #FFAFBD 100%);*/
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     cursor: pointer;
     border: none;
 }
 
-/*.btn1:active {
+nav2:hover {
     color: palegreen;
     background-color: aqua;
 }
-.btn2:active {
+nav2:active {
+    color: palegreen;
+    background-color: aqua;
+}
+/*.btn2:active {
     color: palegreen;
     background-color: aqua;
 }
@@ -55,6 +60,11 @@ h1 {
     color: palegreen;
     background-color: aqua;
 }*/
+
+.nav-link1:active {
+    color: palegreen;
+    background-color: aqua;
+}
 
 #myTab:active {
     background-color: #4bc0c8;

@@ -14,22 +14,24 @@ namespace MoraleExpenseTracker
 {
     public partial class Index : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 BindManagerDropdownsInAllTabs();
             }
-
+           
         }
 
         #region Tabs
         protected void btnAdminTab_Click(object sender, EventArgs e)
         {
-            
+
+            //btnAdminTab.CssClass = "nav2";
             btnAdminTab.Style.Add("background-color", "green");
-            btnManagerTab.Style.Add("background-color", "red");
-            btnReportsTab.Style.Add("background-color", "red");
+             btnManagerTab.Style.Add("background-color", "red");
+             btnReportsTab.Style.Add("background-color", "red");
 
             multiViewTabs.ActiveViewIndex = 0;
             //btnAdminTab.CssClass = "nav-link bg-grey";
