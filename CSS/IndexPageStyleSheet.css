@@ -31,43 +31,27 @@ h1 {
     gap: 2px;
 }
 
-#btnAdminTab, #btnManagerTab, #btnReportsTab {
+.tabHighlight {
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #283048, #859398);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    cursor: pointer;
+    border: none;
+}
+.tabUnHighlight {
     font-size: 1rem;
     padding: 0.6rem 1rem;
     font-weight: bold;
     color: black;
     border-radius: 10px;
-    border-color: aqua;
-  /*  background-image: linear-gradient(to right, #FFAFBD 0%, #ffc3a0 51%, #FFAFBD 100%);*/
+    background-image: linear-gradient(to right, #283048, #859398);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     cursor: pointer;
     border: none;
-}
-
-nav2:hover {
-    color: palegreen;
-    background-color: aqua;
-}
-nav2:active {
-    color: palegreen;
-    background-color: aqua;
-}
-/*.btn2:active {
-    color: palegreen;
-    background-color: aqua;
-}
-.btn3:active {
-    color: palegreen;
-    background-color: aqua;
-}*/
-
-.nav-link1:active {
-    color: palegreen;
-    background-color: aqua;
-}
-
-#myTab:active {
-    background-color: #4bc0c8;
 }
 
 .Footer {
@@ -75,7 +59,7 @@ nav2:active {
     text-align: center;
     width: 100%;
     bottom: 0;
-    background-image: linear-gradient(to right,#feac5e,#c779d0,#4bc0c8);
+    background-image: linear-gradient(to right, #feac5e,#c779d0,#4bc0c8);
     display: flex;
     justify-content: center;
     align-items: center;

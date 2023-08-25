@@ -14,29 +14,26 @@ namespace MoraleExpenseTracker
 {
     public partial class Index : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                btnAdminTab.CssClass = "tabUnHighlight";
+                btnManagerTab.CssClass = "tabUnHighlight";
+                btnReportsTab.CssClass = "tabUnHighlight";
+
                 BindManagerDropdownsInAllTabs();
-            }
-           
+            }            
         }
 
         #region Tabs
         protected void btnAdminTab_Click(object sender, EventArgs e)
         {
-
-            //btnAdminTab.CssClass = "nav2";
-            btnAdminTab.Style.Add("background-color", "green");
-             btnManagerTab.Style.Add("background-color", "red");
-             btnReportsTab.Style.Add("background-color", "red");
-
             multiViewTabs.ActiveViewIndex = 0;
-            //btnAdminTab.CssClass = "nav-link bg-grey";
-            //btnManagerTab.CssClass = "nav-link bg-white";
-            //btnReportsTab.CssClass = "nav-link bg-white";
+
+            btnAdminTab.CssClass = "tabHighlight";
+            btnManagerTab.CssClass = "tabUnHighlight";
+            btnReportsTab.CssClass = "tabUnHighlight";
 
             bool isAdminLoggedIn = Session["AdminLoggedIn"] != null && (bool)Session["AdminLoggedIn"];
             if (isAdminLoggedIn)
@@ -44,18 +41,20 @@ namespace MoraleExpenseTracker
             else
                 multiViewTabs.ActiveViewIndex = 0;
 
+            btnAdminTab.CssClass = "tabHighlight";
+
             ClearManagerView();
             ClearReportsDropdowns();
         }
         protected void btnManagerTab_Click(object sender, EventArgs e)
         {
-            btnAdminTab.Style.Add("background-color", "red");
-            btnManagerTab.Style.Add("background-color", "green");
-            btnReportsTab.Style.Add("background-color", "red");
+            
             multiViewTabs.ActiveViewIndex = 2;
-            //btnAdminTab.CssClass = "nav-link bg-white";
-            //btnManagerTab.CssClass = "nav-link bg-grey";
-            //btnReportsTab.CssClass = "nav-link bg-white";
+
+            btnAdminTab.CssClass = "tabUnHighlight";
+            btnManagerTab.CssClass = "tabHighlight";
+            btnReportsTab.CssClass = "tabUnHighlight";
+
             BindManagerDropdownsInAllTabs();
 
             ClearAdminLoginForm();
@@ -65,14 +64,14 @@ namespace MoraleExpenseTracker
         }
         protected void btnReportsTab_Click(object sender, EventArgs e)
         {
-            btnAdminTab.Style.Add("background-color", "red");
-            btnManagerTab.Style.Add("background-color", "red");
-            btnReportsTab.Style.Add("background-color", "green");
+           
             multiViewTabs.ActiveViewIndex = 3;
+
+            btnAdminTab.CssClass = "tabUnHighlight";
+            btnManagerTab.CssClass = "tabUnHighlight";
+            btnReportsTab.CssClass = "tabHighlight";
+
             BindReportsGridView();
-            //btnAdminTab.CssClass = "nav-link bg-white";
-            //btnManagerTab.CssClass = "nav-link bg-white";
-            //btnReportsTab.CssClass = "nav-link bg-grey";
 
             ClearAdminLoginForm();
             ClearAdminView();
