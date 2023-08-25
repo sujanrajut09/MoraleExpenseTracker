@@ -15,15 +15,15 @@ namespace MoraleExpenseTracker
     public class ExpenseRecord
     {
         public int ExpenseId { get; set; }
-        public string ManagerName { get; set; }
-        public string FinancialYear { get; set; }
+        public string Manager { get; set; }
+        public string FY { get; set; }
         public string Quarter { get; set; }
         public int Reportees { get; set; }
         public decimal Budget { get; set; }
         public decimal Expenses { get; set; }
         public decimal Balance { get; set; }
         public string Description { get; set; }
-        public DateTime BudgetAllocatedDate { get; set; }
+        public DateTime BudgetDate { get; set; }
         public DateTime ExpenseDate { get; set; }
     }
 
@@ -55,14 +55,14 @@ namespace MoraleExpenseTracker
                             ExpenseRecord expenseRecord = new ExpenseRecord
                             {
                                 ExpenseId = Convert.ToInt32(reader["Id"]),
-                                ManagerName = reader["ManagerName"].ToString(),
-                                FinancialYear = reader["Year"].ToString(),
+                                Manager = reader["ManagerName"].ToString(),
+                                FY = reader["Year"].ToString(),
                                 Quarter = reader["Quarter"].ToString(),
                                 Budget = Convert.ToDecimal(reader["Budget"]),
                                 Balance = Convert.ToDecimal(reader["Balance"]),
                                 Reportees = Convert.ToInt32(reader["HeadCount"]),
                                 Description = reader["Description"].ToString(),
-                                BudgetAllocatedDate = Convert.ToDateTime(reader["BudgetAllocatedDate"])
+                                BudgetDate = Convert.ToDateTime(reader["BudgetAllocatedDate"])
                             };
 
                             if (reader["Expenses"] != DBNull.Value)

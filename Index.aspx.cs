@@ -23,7 +23,7 @@ namespace MoraleExpenseTracker
                 btnReportsTab.CssClass = "tabUnHighlight";
 
                 BindManagerDropdownsInAllTabs();
-            }            
+            }
         }
 
         #region Tabs
@@ -48,7 +48,7 @@ namespace MoraleExpenseTracker
         }
         protected void btnManagerTab_Click(object sender, EventArgs e)
         {
-            
+
             multiViewTabs.ActiveViewIndex = 2;
 
             btnAdminTab.CssClass = "tabUnHighlight";
@@ -64,7 +64,7 @@ namespace MoraleExpenseTracker
         }
         protected void btnReportsTab_Click(object sender, EventArgs e)
         {
-           
+
             multiViewTabs.ActiveViewIndex = 3;
 
             btnAdminTab.CssClass = "tabUnHighlight";
@@ -346,7 +346,7 @@ namespace MoraleExpenseTracker
             List<ExpenseRecord> expenseRecords = dataAccess.GetAllExpenseRecords();
 
             List<ExpenseRecord> filteredRecords = expenseRecords
-                .Where(r => r.ManagerName == selectedManager && r.FinancialYear == selectedYear && r.Quarter == selectedQuarter)
+                .Where(r => r.Manager == selectedManager && r.FY == selectedYear && r.Quarter == selectedQuarter)
                 .ToList();
 
             gvManager.DataSource = filteredRecords;
@@ -355,7 +355,7 @@ namespace MoraleExpenseTracker
             decimal sumOfExpenses = filteredRecords.Sum(r => r.Expenses);
 
             string selectedMgr = ddlManagerM.SelectedItem.ToString();
-            ExpenseRecord managerRecord = expenseRecords.FirstOrDefault(r => r.ManagerName == selectedMgr && r.FinancialYear == selectedYear && r.Quarter == ddlQuarterM.SelectedValue);
+            ExpenseRecord managerRecord = expenseRecords.FirstOrDefault(r => r.Manager == selectedMgr && r.FY == selectedYear && r.Quarter == ddlQuarterM.SelectedValue);
 
             if (managerRecord != null)
             {
@@ -457,7 +457,7 @@ namespace MoraleExpenseTracker
                     string selectedQuarter = ddlQuarterR.SelectedItem.ToString();
 
                     filteredExpenseRecords = expenseRecords
-                        .Where(r => r.ManagerName == selectedManager && r.FinancialYear == selectedYear && r.Quarter == selectedQuarter)
+                        .Where(r => r.Manager == selectedManager && r.FY == selectedYear && r.Quarter == selectedQuarter)
                         .ToList();
                 }
                 else if (selectedYearIndex != 0)
@@ -465,7 +465,7 @@ namespace MoraleExpenseTracker
                     string selectedYear = ddlYearR.SelectedItem.ToString();
 
                     filteredExpenseRecords = expenseRecords
-                        .Where(r => r.ManagerName == selectedManager && r.FinancialYear == selectedYear)
+                        .Where(r => r.Manager == selectedManager && r.FY == selectedYear)
                         .ToList();
                 }
                 else if (selectedQuarterIndex != 0)
@@ -473,13 +473,13 @@ namespace MoraleExpenseTracker
                     string selectedQuarter = ddlQuarterR.SelectedItem.ToString();
 
                     filteredExpenseRecords = expenseRecords
-                        .Where(r => r.ManagerName == selectedManager && r.Quarter == selectedQuarter)
+                        .Where(r => r.Manager == selectedManager && r.Quarter == selectedQuarter)
                         .ToList();
                 }
                 else
                 {
                     filteredExpenseRecords = expenseRecords
-                        .Where(r => r.ManagerName == selectedManager)
+                        .Where(r => r.Manager == selectedManager)
                         .ToList();
                 }
             }
@@ -489,7 +489,7 @@ namespace MoraleExpenseTracker
                 string selectedQuarter = ddlQuarterR.SelectedItem.ToString();
 
                 filteredExpenseRecords = expenseRecords
-                    .Where(r => r.FinancialYear == selectedYear && r.Quarter == selectedQuarter)
+                    .Where(r => r.FY == selectedYear && r.Quarter == selectedQuarter)
                     .ToList();
             }
             else if (selectedYearIndex != 0)
@@ -497,7 +497,7 @@ namespace MoraleExpenseTracker
                 string selectedYear = ddlYearR.SelectedItem.ToString();
 
                 filteredExpenseRecords = expenseRecords
-                    .Where(r => r.FinancialYear == selectedYear)
+                    .Where(r => r.FY == selectedYear)
                     .ToList();
             }
             else if (selectedQuarterIndex != 0)
@@ -510,8 +510,8 @@ namespace MoraleExpenseTracker
             }
 
             decimal sumOfFilteredBudget = filteredExpenseRecords
-                .GroupBy(r => new { r.ManagerName, r.FinancialYear, r.Quarter })
-                .Select(group => group.OrderByDescending(r => r.BudgetAllocatedDate).First().Budget)
+                .GroupBy(r => new { r.Manager, r.FY, r.Quarter })
+                .Select(group => group.OrderByDescending(r => r.BudgetDate).First().Budget)
                 .Sum();
 
             decimal sumOfFilteredExpenses = filteredExpenseRecords
