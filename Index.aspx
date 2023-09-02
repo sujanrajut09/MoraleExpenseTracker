@@ -22,10 +22,10 @@
                 <!-- Tab buttons -->
                 <div class="nav nav-tabs" id="myTab" role="tablist">
                     <asp:Button ID="btnAdminTab" runat="server" Text="Admin" OnClick="btnAdminTab_Click" CssClass="nav-link" class="btn1" />
-                    <asp:Button ID="btnManagerTab" runat="server" Text="Manager" OnClick="btnManagerTab_Click" CssClass="nav-link" class="btn2"/>
+                    <asp:Button ID="btnManagerTab" runat="server" Text="Manager" OnClick="btnManagerTab_Click" CssClass="nav-link" class="btn2" />
                     <asp:Button ID="btnReportsTab" runat="server" Text="Reports" OnClick="btnReportsTab_Click" CssClass="nav-link" class="btn3" />
                 </div>
-            </nav>  
+            </nav>
         </header>
 
         <!-- Tab navigation using ASP.NET MultiView -->
@@ -69,8 +69,7 @@
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblYearA" runat="server" AssociatedControlID="ddlYearA">Financial Year:</asp:Label>
                         <asp:DropDownList ID="ddlYearA" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="All">Please select</asp:ListItem>
-                            <asp:ListItem Value="2023">2023</asp:ListItem>
+                            <%--<asp:ListItem Value="All">Please select</asp:ListItem>--%>
                             <asp:ListItem Value="2024">2024</asp:ListItem>
                             <asp:ListItem Value="2025">2025</asp:ListItem>
                             <asp:ListItem Value="2026">2026</asp:ListItem>
@@ -78,9 +77,10 @@
                             <asp:ListItem Value="2028">2028</asp:ListItem>
                             <asp:ListItem Value="2029">2029</asp:ListItem>
                             <asp:ListItem Value="2030">2030</asp:ListItem>
-                            <asp:ListItem Value="2020">2031</asp:ListItem>
-                            <asp:ListItem Value="2021">2032</asp:ListItem>
-                            <asp:ListItem Value="2022">2033</asp:ListItem>
+                            <asp:ListItem Value="2031">2031</asp:ListItem>
+                            <asp:ListItem Value="2032">2032</asp:ListItem>
+                            <asp:ListItem Value="2033">2033</asp:ListItem>
+                            <asp:ListItem Value="2034">2034</asp:ListItem>
                         </asp:DropDownList>
                     </div>
                     <div class="form-group col-md-3">
@@ -190,7 +190,7 @@
                                 <thead>
                                     <tr>
                                         <th>ExpenseId</th>
-                                        <th>ManagerName</th>
+                                        <th>Manager</th>
                                         <th>FY</th>
                                         <th>Quarter</th>
                                         <th>Reportees</th>
@@ -208,8 +208,8 @@
                         <ItemTemplate>
                             <tr>
                                 <td><%# Eval("ExpenseId") %></td>
-                                <td><%# Eval("ManagerName") %></td>
-                                <td><%# Eval("FinancialYear") %></td>
+                                <td><%# Eval("Manager") %></td>
+                                <td><%# Eval("FY") %></td>
                                 <td><%# Eval("Quarter") %></td>
                                 <td><%# Eval("Reportees") %></td>
                                 <td><%# Eval("Budget") %></td>
@@ -222,7 +222,7 @@
                                     <asp:TextBox ID="txtRptDescription" runat="server" TextMode="MultiLine" Rows="2" CssClass="form-control" Text='<%# Eval("Description") %>'></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvRptDescription" runat="server" ControlToValidate="txtRptDescription" Display="Dynamic" Text="*" ForeColor="Red" ValidationGroup="RptExpenseValidationGroupA"></asp:RequiredFieldValidator>
                                 </td>
-                                <td><%# Eval("BudgetAllocatedDate") %></td>
+                                <td><%# Eval("BudgetDate") %></td>
                                 <td><%# Eval("ExpenseDate") %></td>
                                 <td class="text-center">
                                     <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandName="Update" CommandArgument='<%# Eval("ExpenseId") %>' CssClass="btn btn-primary" ValidationGroup="RptExpenseValidationGroupA" />
@@ -245,8 +245,7 @@
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblYearM" runat="server" AssociatedControlID="ddlYearM">Financial Year:</asp:Label>
                         <asp:DropDownList ID="ddlYearM" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlYearM_SelectedIndexChanged">
-                            <asp:ListItem Value="All">Please select</asp:ListItem>
-                            <asp:ListItem Value="2023">2023</asp:ListItem>
+                            <%--<asp:ListItem Value="All">Please select</asp:ListItem>--%>
                             <asp:ListItem Value="2024">2024</asp:ListItem>
                             <asp:ListItem Value="2025">2025</asp:ListItem>
                             <asp:ListItem Value="2026">2026</asp:ListItem>
@@ -254,9 +253,10 @@
                             <asp:ListItem Value="2028">2028</asp:ListItem>
                             <asp:ListItem Value="2029">2029</asp:ListItem>
                             <asp:ListItem Value="2030">2030</asp:ListItem>
-                            <asp:ListItem Value="2020">2031</asp:ListItem>
-                            <asp:ListItem Value="2021">2032</asp:ListItem>
-                            <asp:ListItem Value="2022">2033</asp:ListItem>
+                            <asp:ListItem Value="2031">2031</asp:ListItem>
+                            <asp:ListItem Value="2032">2032</asp:ListItem>
+                            <asp:ListItem Value="2033">2033</asp:ListItem>
+                            <asp:ListItem Value="2034">2034</asp:ListItem>
                         </asp:DropDownList>
                     </div>
                     <div class="form-group col-md-3">
@@ -325,7 +325,6 @@
                     <div class="form-group col-md-3">
                         <asp:Label ID="lblYearR" runat="server" AssociatedControlID="ddlYearR">Financial Year:</asp:Label>
                         <asp:DropDownList ID="ddlYearR" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlYearR_SelectedIndexChanged">
-                            <asp:ListItem Value="2023">2023</asp:ListItem>
                             <asp:ListItem Value="2024">2024</asp:ListItem>
                             <asp:ListItem Value="2025">2025</asp:ListItem>
                             <asp:ListItem Value="2026">2026</asp:ListItem>
@@ -333,9 +332,10 @@
                             <asp:ListItem Value="2028">2028</asp:ListItem>
                             <asp:ListItem Value="2029">2029</asp:ListItem>
                             <asp:ListItem Value="2030">2030</asp:ListItem>
-                            <asp:ListItem Value="2020">2031</asp:ListItem>
-                            <asp:ListItem Value="2021">2032</asp:ListItem>
-                            <asp:ListItem Value="2022">2033</asp:ListItem>
+                            <asp:ListItem Value="2031">2031</asp:ListItem>
+                            <asp:ListItem Value="2032">2032</asp:ListItem>
+                            <asp:ListItem Value="2033">2033</asp:ListItem>
+                            <asp:ListItem Value="2034">2034</asp:ListItem>
                         </asp:DropDownList>
                     </div>
                     <div class="form-group col-md-3">
