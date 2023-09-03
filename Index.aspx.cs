@@ -252,7 +252,18 @@ namespace MoraleExpenseTracker
                 lblMsgA.Text = "Expense updated successfully!";
                 BindExpenseRecordToRepeater();
             }
+            else if (e.CommandName == "Delete")
+            {
+                int expenseId = Convert.ToInt32(e.CommandArgument);             
+
+                dataAccess.DeleteExpense(expenseId);
+
+                lblMsgA.Text = "Expense deleted successfully!";
+                rptExpenses.DataSource = null;
+                rptExpenses.DataBind();
+            }
         }
+
         private void BindExpenseRecordToRepeater()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;

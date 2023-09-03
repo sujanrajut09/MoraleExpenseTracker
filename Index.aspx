@@ -198,9 +198,9 @@
                                         <th>Expenses</th>
                                         <th>Balance</th>
                                         <th>Description</th>
-                                        <th>BudgetDate</th>
-                                        <th>ExpenseDate</th>
-                                        <th class="text-center">Update</th>
+                                        <%--<th>BudgetDate</th>--%>
+                                        <%--<th>ExpenseDate</th>--%>
+                                        <th>Update/Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -222,10 +222,15 @@
                                     <asp:TextBox ID="txtRptDescription" runat="server" TextMode="MultiLine" Rows="2" CssClass="form-control" Text='<%# Eval("Description") %>'></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvRptDescription" runat="server" ControlToValidate="txtRptDescription" Display="Dynamic" Text="*" ForeColor="Red" ValidationGroup="RptExpenseValidationGroupA"></asp:RequiredFieldValidator>
                                 </td>
-                                <td><%# Eval("BudgetDate") %></td>
-                                <td><%# Eval("ExpenseDate") %></td>
-                                <td class="text-center">
-                                    <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandName="Update" CommandArgument='<%# Eval("ExpenseId") %>' CssClass="btn btn-primary" ValidationGroup="RptExpenseValidationGroupA" />
+                                <%--<td><%# Eval("BudgetDate") %></td>--%>
+                                <%--<td><%# Eval("ExpenseDate") %></td>--%>
+                                <td>
+                                    <div style="display: inline-block;">
+                                        <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandName="Update" CommandArgument='<%# Eval("ExpenseId") %>' CssClass="btn btn-primary" ValidationGroup="RptExpenseValidationGroupA" />
+                                    </div>
+                                    <div style="display: inline-block;">
+                                        <asp:Button ID="btnRptDelete" runat="server" Text="Delete" CommandName="Delete" CommandArgument='<%# Eval("ExpenseId") %>' CssClass="btn btn-primary" />
+                                    </div>
                                 </td>
                             </tr>
                         </ItemTemplate>

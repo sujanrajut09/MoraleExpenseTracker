@@ -54,6 +54,9 @@ h1 {
     border: none;
 }
 
+.btn-same-size {
+    width: 150px;
+}
 .Footer {
     position: fixed;
     text-align: center;

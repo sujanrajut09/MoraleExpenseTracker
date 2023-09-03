@@ -133,6 +133,32 @@ namespace MoraleExpenseTracker
             }
         }
 
+        public void DeleteExpense(int expenseId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand("sp_DeleteExpense", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Add parameters to the stored procedure
+                    command.Parameters.Add(new SqlParameter("@ExpenseId", SqlDbType.Int));
+                    command.Parameters["@ExpenseId"].Value = expenseId;
+
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error deleting expense: " + ex.Message);
+                        // Handle the exception as needed
+                    }
+                }
+            }
+        }
 
         public void DeactivateManager(int managerId)
         {
