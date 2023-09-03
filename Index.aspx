@@ -17,7 +17,7 @@
                     <img style="width: 80px; height: 80px; border-radius: 41px; outline: 4px solid red;" src="CSS/Images/Financial-Management.png" />
                 </div>
                 <div>
-                    <h1>DAS - MORALE EXPENSE TARCKER </h1>
+                    <h1>DAS - MORALE EXPENSE TRACKER</h1>
                 </div>
                 <!-- Tab buttons -->
                 <div class="nav nav-tabs" id="myTab" role="tablist">

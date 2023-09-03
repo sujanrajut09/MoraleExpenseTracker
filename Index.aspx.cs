@@ -277,6 +277,7 @@ namespace MoraleExpenseTracker
             {
                 rptExpenses.DataSource = new List<ExpenseRecord> { expenseRecord };
                 rptExpenses.DataBind();
+                lblMsgA.CssClass = "text-success";
             }
             else
             {
