@@ -114,8 +114,7 @@ namespace MoraleExpenseTracker
         }
         protected void btnSaveNewManager_Click(object sender, EventArgs e)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess();
 
             string newManagerName = txtNewManagerName.Text.Trim();
             dataAccess.InsertManager(newManagerName);
@@ -125,16 +124,17 @@ namespace MoraleExpenseTracker
         }
         protected void btnDelManager_Click(object sender, EventArgs e)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess();
 
             int managerId = Convert.ToInt32(ddlDelMgrName.SelectedValue);
             dataAccess.DeactivateManager(managerId);
+
             lblMsgA.Text = "Manager deleted successfully!";
             BindManagerDropdownsInAllTabs();
         }
         protected void btnGetExpenseA_Click(object sender, EventArgs e)
         {
+            lblMsgA.Text = string.Empty;
             BindExpenseRecordToRepeater();
         }
         private void BindManagerDropdownsInAllTabs()
@@ -201,8 +201,6 @@ namespace MoraleExpenseTracker
         }
         private void SaveAdminData()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-
             int managerId = Convert.ToInt32(ddlManagerA.SelectedValue);
             int year = Convert.ToInt32(ddlYearA.SelectedValue);
             string quarter = ddlQuarter.SelectedValue;
@@ -211,31 +209,15 @@ namespace MoraleExpenseTracker
             string description = txtDescriptionA.Text.Trim();
             DateTime budgetAllocatedDate = DateTime.Now;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                using (SqlCommand command = new SqlCommand("sp_SaveAdminData", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ManagerId", managerId);
-                    command.Parameters.AddWithValue("@Year", year);
-                    command.Parameters.AddWithValue("@Quarter", quarter);
-                    command.Parameters.AddWithValue("@Budget", budget);
-                    command.Parameters.AddWithValue("@HeadCount", headCount);
-                    command.Parameters.AddWithValue("@Description", description);
-                    command.Parameters.AddWithValue("@BudgetAllocatedDate", budgetAllocatedDate);
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess();
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-                lblMsgASave.Text = "Data saved successfully!";
-            }
+            dataAccess.AllocatedBudgetByAdmin(managerId, year, quarter, budget, headCount, description, budgetAllocatedDate);
 
+            lblMsgASave.Text = "Data saved successfully!";
         }
-
         protected void rptExpenses_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess();
 
             if (e.CommandName == "Update")
             {
@@ -254,7 +236,7 @@ namespace MoraleExpenseTracker
             }
             else if (e.CommandName == "Delete")
             {
-                int expenseId = Convert.ToInt32(e.CommandArgument);             
+                int expenseId = Convert.ToInt32(e.CommandArgument);
 
                 dataAccess.DeleteExpense(expenseId);
 
@@ -263,11 +245,9 @@ namespace MoraleExpenseTracker
                 rptExpenses.DataBind();
             }
         }
-
         private void BindExpenseRecordToRepeater()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess();
 
             int expenseId = Convert.ToInt32(txtExpenseIdA.Text.Trim());
 
@@ -277,24 +257,23 @@ namespace MoraleExpenseTracker
             {
                 rptExpenses.DataSource = new List<ExpenseRecord> { expenseRecord };
                 rptExpenses.DataBind();
+                
                 lblMsgA.CssClass = "text-success";
             }
             else
             {
                 rptExpenses.DataSource = null;
                 rptExpenses.DataBind();
+
                 lblMsgA.Text = "Invalid Expense!";
                 lblMsgA.CssClass = "text-danger";
             }
         }
-
         #endregion
 
         #region ManagerTab
         protected void btnSaveM_Click(object sender, EventArgs e)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-
             int managerId = Convert.ToInt32(ddlManagerM.SelectedValue);
             int year = Convert.ToInt32(ddlYearM.SelectedValue);
             string quarter = ddlQuarterM.SelectedValue;
@@ -304,27 +283,13 @@ namespace MoraleExpenseTracker
             string description = txtDescriptionM.Text.Trim();
             DateTime expenseDate = DateTime.Now;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                using (SqlCommand command = new SqlCommand("sp_SaveManagerData", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@ManagerId", managerId);
-                    command.Parameters.AddWithValue("@Year", year);
-                    command.Parameters.AddWithValue("@Quarter", quarter);
-                    command.Parameters.AddWithValue("@Budget", budget);
-                    command.Parameters.AddWithValue("@HeadCount", headCount);
-                    command.Parameters.AddWithValue("@Expenses", expense);
-                    command.Parameters.AddWithValue("@Description", description);
-                    command.Parameters.AddWithValue("@ExpenseDate", expenseDate);
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess();
+            dataAccess.SaveExpenseByManager(managerId, year, quarter, budget, expense, headCount, description, expenseDate);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-                lblMsgM.Text = "Data saved successfully!";
-                BindManagerGrid();
-            }
+            lblMsgM.Text = "Data saved successfully!";
+            BindManagerGrid();
         }
+
         protected void ddlManagerM_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindManagerGrid();
@@ -348,8 +313,7 @@ namespace MoraleExpenseTracker
         }
         private void BindManagerGrid()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess();
 
             string selectedManager = ddlManagerM.SelectedItem.ToString();
             string selectedYear = ddlYearM.SelectedValue;
@@ -381,7 +345,6 @@ namespace MoraleExpenseTracker
                 txtExpenseM.Text = string.Empty;
             }
         }
-
         #endregion
 
         #region ReportsTab
@@ -446,18 +409,16 @@ namespace MoraleExpenseTracker
                 Response.End();
             }
         }
-
         private List<ExpenseRecord> ReportsResultSet()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess(connectionString);
+            ExpenseTrackerDataAccess dataAccess = new ExpenseTrackerDataAccess();
 
             int selectedManagerIndex = ddlManagerR.SelectedIndex;
             int selectedYearIndex = ddlYearR.SelectedIndex;
             int selectedQuarterIndex = ddlQuarterR.SelectedIndex;
 
             List<ExpenseRecord> expenseRecords = dataAccess.GetAllExpenseRecords();
-            List<ExpenseRecord> filteredExpenseRecords = expenseRecords; // Initialize with all records
+            List<ExpenseRecord> filteredExpenseRecords = expenseRecords;
 
             if (selectedManagerIndex != 0)
             {
@@ -534,13 +495,11 @@ namespace MoraleExpenseTracker
 
             return filteredExpenseRecords;
         }
-
         private void BindReportsGridView()
         {
             gvReports.DataSource = ReportsResultSet();
             gvReports.DataBind();
         }
-
         #endregion
 
         #region ClearOff
@@ -594,7 +553,6 @@ namespace MoraleExpenseTracker
             ddlYearR.SelectedIndex = 0;
             ddlQuarterR.SelectedIndex = 0;
         }
-
         #endregion
     }
 }
