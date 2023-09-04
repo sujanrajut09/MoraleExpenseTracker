@@ -16,7 +16,6 @@ namespace MoraleExpenseTracker
 
             _connectionString = connectionString;
         }
-
         public List<ExpenseRecord> GetAllExpenseRecords()
         {
             List<ExpenseRecord> expenseRecords = new List<ExpenseRecord>();
@@ -72,7 +71,6 @@ namespace MoraleExpenseTracker
             }
             return expenseRecords;
         }
-
         public void InsertManager(string managerName)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -112,7 +110,6 @@ namespace MoraleExpenseTracker
                 }
             }
         }
-
         public void DeleteExpense(int expenseId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -138,7 +135,6 @@ namespace MoraleExpenseTracker
                 }
             }
         }
-
         public void DeactivateManager(int managerId)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -153,7 +149,6 @@ namespace MoraleExpenseTracker
                 }
             }
         }
-
         public void SaveExpenseByManager(int managerId, int year, string quarter, decimal budget, decimal expense, int headCount, string description, DateTime expenseDate)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
@@ -177,7 +172,6 @@ namespace MoraleExpenseTracker
                 }
             }
         }
-
         public void AllocatedBudgetByAdmin(int managerId, int year, string quarter, decimal budget, int headCount, string description, DateTime budgetAllocatedDate)
         {
             using (SqlConnection connection = new SqlConnection())
