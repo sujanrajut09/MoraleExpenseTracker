@@ -151,9 +151,7 @@ namespace MoraleExpenseTracker
         }
         public void SaveExpenseByManager(int managerId, int year, string quarter, decimal budget, decimal expense, int headCount, string description, DateTime expenseDate)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ExpenseTrackerConStr"].ConnectionString;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand("sp_SaveManagerData", connection))
                 {
@@ -174,7 +172,7 @@ namespace MoraleExpenseTracker
         }
         public void AllocatedBudgetByAdmin(int managerId, int year, string quarter, decimal budget, int headCount, string description, DateTime budgetAllocatedDate)
         {
-            using (SqlConnection connection = new SqlConnection())
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 using (SqlCommand command = new SqlCommand("sp_SaveAdminData", connection))
                 {
@@ -190,7 +188,6 @@ namespace MoraleExpenseTracker
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
-                
             }
         }
     }

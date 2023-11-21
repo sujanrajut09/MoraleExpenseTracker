@@ -48,7 +48,6 @@ namespace MoraleExpenseTracker
         }
         protected void btnManagerTab_Click(object sender, EventArgs e)
         {
-
             multiViewTabs.ActiveViewIndex = 2;
 
             btnAdminTab.CssClass = "tabUnHighlight";
@@ -64,7 +63,6 @@ namespace MoraleExpenseTracker
         }
         protected void btnReportsTab_Click(object sender, EventArgs e)
         {
-
             multiViewTabs.ActiveViewIndex = 3;
 
             btnAdminTab.CssClass = "tabUnHighlight";
